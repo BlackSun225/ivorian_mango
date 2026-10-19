@@ -1,0 +1,1085 @@
+<title>Mangue de Côte d'Ivoire</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="La filière mangue ivoirienne face à la suspension européenne : histoire, nutrition, origines, crise de la mouche des fruits, transformation locale et moyens d'agir.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<!--
+DESIGN PLAN (gpt-taste)
+  rng.seed = len(prompt) % 97  -> hero="Cinematic Center (light)", fonts=("Outfit" display, "Geist" body)
+  rng.choice(arsenal, 3)       -> ["inline typography images", "horizontal accordion", "infinite marquee"]
+  rng.choice(gsap, 4)          -> ["scroll pinning split", "scrubbing word reveal", "card stacking", "image scale-and-fade"]
+  Fonts: Cabinet Grotesk / Satoshi are Fontshare faces the artifact CSP cannot load, so the
+  gpt-taste alternates Outfit + Geist (Google Fonts) are used. Never Inter.
+  AIDA: Nav (glass pill) -> Attention (hero) -> Interest (bento nutrition) -> Desire (crise: scrub, chart, stack)
+        -> Action (Comment aider + footer).
+  Hero math: H1 in max-width 72rem (= max-w-6xl), clamp(2rem, 1rem + 4.6vw, 5.4rem):
+        ~58 characters -> 2 lines at 1440px, 3 lines at 768px, 4 short lines max at 360px.
+  Bento math (4 columns, grid-auto-flow: dense):
+        big 2x2 (4 cells) + vitC 2x1 (2) + vitA 1x1 (1) + folates 1x1 (1) + mineraux 4x1 (4) = 12 = 4 cols x 3 rows.
+        2 columns: 4 + 2 + 1 + 1 + 2 = 10 = 2 x 5. 1 column: all span 1.
+  Labels: no meta-labels. Buttons: earth on cream, cream on earth, earth on mango (contrast > 7:1).
+  Images: the artifact sandbox blocks external images, so every visual is inline SVG.
+  Real photos to source later: orchard near Korhogo, harvest crates, packing station, Abidjan market stall,
+  drying unit, women's cooperative at work.
+  History dates are indicative ("environ", "vers le XVIe siecle") and must be checked before launch.
+-->
+<style>
+:root{
+  /* Layout: cinematic chapters on warm paper; one mango carries the story from orchard to market. */
+  color-scheme: light;
+  --cream:#FBF6EC; --sand:#F2E6D0; --sand-deep:#E6D3B0; --paper:#FFFBF3;
+  --mango:#F4A300; --mango-deep:#E8730C; --mango-ink:#9C4A05; --gold:#F2C14E;
+  --leaf:#2F5D3A; --leaf-soft:#7E9A52;
+  --earth:#3B2A1E; --earth-soft:#6B5847; --line:rgba(59,42,30,.14);
+  --alert:#B23A1F; --alert-soft:rgba(178,58,31,.12);
+  --display:"Outfit","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Geist","Helvetica Neue",Arial,system-ui,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --gutter-l:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width:760px){ :root{ --gutter-l:max(40px, env(safe-area-inset-left, 0px)); --gutter-r:max(40px, env(safe-area-inset-right, 0px)); } }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html.lenis, html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--cream);color:var(--earth);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--cream)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:70;opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+main{overflow-x:hidden;width:100%;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2.5px solid var(--leaf);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);line-height:1.02;letter-spacing:-.025em;margin:0;text-wrap:balance;font-weight:700}
+p{margin:0}
+.wrap{max-width:1240px;margin-inline:auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.chapter{padding-block:clamp(96px,14vw,184px);position:relative;scroll-margin-top:72px}
+.kicker{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mango-ink);display:inline-flex;align-items:center;gap:.6em}
+.kicker::before{content:"";width:28px;height:1.5px;background:currentColor}
+.h2{font-size:clamp(2.2rem,1.2rem + 4vw,4.8rem);max-width:18ch}
+.lede{font-size:clamp(1.05rem,.95rem + .5vw,1.3rem);color:var(--earth-soft);max-width:60ch}
+.src{font-family:var(--mono);font-size:.7em;vertical-align:super;line-height:0;text-decoration:none;color:var(--mango-ink);margin-left:.15em}
+.src:hover{text-decoration:underline}
+.note{font-family:var(--mono);font-size:.74rem;color:var(--earth-soft);letter-spacing:.02em}
+.pill-img{display:inline-block;width:1.9em;height:.82em;border-radius:999px;vertical-align:.02em;margin-inline:.12em;overflow:hidden;position:relative;
+  background:radial-gradient(circle at 28% 40%,#FFD36B 0 18%,transparent 19%),radial-gradient(ellipse at 60% 55%,var(--mango) 0 45%,var(--mango-deep) 72%,#C7520A 100%);
+  box-shadow:inset 0 0 0 3px rgba(255,251,243,.5)}
+.pill-img::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 9px,rgba(255,240,200,.35) 9px 11px)}
+.pill-img.leafy{background:radial-gradient(circle at 70% 40%,#C9DB8C 0 16%,transparent 17%),linear-gradient(120deg,var(--leaf) 0%,var(--leaf-soft) 55%,var(--gold) 100%)}
+.pill-img.leafy::after{background:repeating-linear-gradient(60deg,transparent 0 12px,rgba(255,255,255,.18) 12px 13px)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--body);font-weight:600;font-size:1rem;padding:.95em 1.5em;border-radius:999px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:transform .5s var(--ease),background-color .3s,color .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn-dark{background:var(--earth);color:var(--cream)}
+.btn-dark:hover{background:#24180F}
+.btn-line{background:transparent;color:var(--earth);border-color:var(--earth)}
+.btn-line:hover{background:var(--earth);color:var(--cream)}
+.btn-mango{background:var(--mango);color:var(--earth)}
+.btn-mango:hover{background:var(--gold)}
+.btn svg{width:18px;height:18px}
+
+/* Navigation */
+.nav{position:fixed;z-index:50;top:calc(12px + env(safe-area-inset-top,0px));left:calc(var(--gutter-l) - 4px);right:calc(var(--gutter-r) - 4px);display:flex;justify-content:center;pointer-events:none}
+.nav-pill{pointer-events:auto;width:100%;max-width:1180px;display:flex;align-items:center;gap:16px;padding:8px 8px 8px 16px;border-radius:999px;
+  background:rgba(251,246,236,.72);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(59,42,30,.1);box-shadow:0 10px 30px -18px rgba(59,42,30,.4);position:relative;overflow:hidden}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-.01em;white-space:nowrap}
+.brand-mark{width:26px;height:28px;flex:none}
+.brand-mark .mk-skin{transition:fill .8s var(--ease)}
+.brand-mark .mk-half{transition:transform .8s var(--ease)}
+.brand-mark .mk-fly{opacity:0;transition:opacity .4s}
+.nav[data-state="green"] .mk-skin{fill:#7FA03A}
+.nav[data-state="gold"] .mk-skin{fill:var(--gold)}
+.nav[data-state="ripe"] .mk-skin{fill:var(--mango)}
+.nav[data-state="attacked"] .mk-skin{fill:#C9642E}
+.nav[data-state="attacked"] .mk-fly{opacity:1}
+.nav[data-state="split"] .mk-skin{fill:var(--mango)}
+.nav[data-state="split"] .mk-l{transform:translateX(-2.5px) rotate(-6deg)}
+.nav[data-state="split"] .mk-r{transform:translateX(2.5px) rotate(6deg)}
+.nav-links{display:none;gap:4px;margin-left:auto;list-style:none;padding:0;margin-block:0}
+.nav-links a{display:block;text-decoration:none;font-size:.92rem;font-weight:500;padding:.5em .85em;border-radius:999px;color:var(--earth-soft);transition:color .3s,background-color .3s}
+.nav-links a:hover,.nav-links a.is-active{color:var(--earth);background:rgba(59,42,30,.07)}
+.nav-cta{display:none;padding:.7em 1.2em;font-size:.92rem}
+.menu-btn{margin-left:auto;width:44px;height:44px;border-radius:999px;border:0;background:var(--earth);color:var(--cream);display:grid;place-items:center;cursor:pointer}
+.menu-btn span{display:block;width:16px;height:1.5px;background:currentColor;position:relative;transition:transform .4s var(--ease)}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0;width:16px;height:1.5px;background:currentColor;transition:transform .4s var(--ease)}
+.menu-btn span::before{top:-5px}.menu-btn span::after{top:5px}
+.menu-open .menu-btn span{background:transparent}
+.menu-open .menu-btn span::before{transform:translateY(5px) rotate(45deg)}
+.menu-open .menu-btn span::after{transform:translateY(-5px) rotate(-45deg)}
+.progress{position:absolute;left:18px;right:18px;bottom:0;height:2px;background:var(--mango);transform-origin:0 50%;transform:scaleX(0);border-radius:2px}
+@media (min-width:1080px){ .nav-links,.nav-cta{display:flex} .menu-btn{display:none} .nav-links{margin-left:auto} }
+.menu{position:fixed;inset:0;z-index:45;background:var(--cream);padding:calc(110px + env(safe-area-inset-top,0px)) var(--gutter-r) calc(40px + env(safe-area-inset-bottom,0px)) var(--gutter-l);display:flex;flex-direction:column;justify-content:space-between;visibility:hidden;opacity:0;transition:opacity .4s,visibility .4s}
+.menu-open .menu{visibility:visible;opacity:1}
+.menu ul{list-style:none;padding:0;margin:0;display:grid;gap:4px}
+.menu a{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,9vw,3.4rem);text-decoration:none;letter-spacing:-.03em;display:inline-block;transform:translateY(24px);opacity:0;transition:transform .7s var(--ease),opacity .7s var(--ease)}
+.menu-open .menu a{transform:none;opacity:1}
+.menu li:nth-child(2) a{transition-delay:.05s}.menu li:nth-child(3) a{transition-delay:.1s}.menu li:nth-child(4) a{transition-delay:.15s}.menu li:nth-child(5) a{transition-delay:.2s}.menu li:nth-child(6) a{transition-delay:.25s}
+@media (min-width:1080px){ .menu{display:none} }
+
+/* Hero */
+.hero{position:relative;padding-top:calc(150px + env(safe-area-inset-top,0px));text-align:center;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:-10% -20% 20%;z-index:-1;background:radial-gradient(60% 55% at 50% 38%,rgba(255,251,243,1) 0%,rgba(251,246,236,.9) 45%,rgba(251,246,236,0) 75%),radial-gradient(40% 40% at 78% 20%,rgba(244,163,0,.22),transparent 70%),radial-gradient(35% 35% at 18% 30%,rgba(126,154,82,.18),transparent 70%)}
+.hero h1{font-size:clamp(2rem,1rem + 4.6vw,5.4rem);max-width:72rem;margin-inline:auto;font-weight:800;letter-spacing:-.035em;line-height:.98}
+.hero h1 em{font-style:normal;color:var(--mango-deep)}
+.hero-sub{margin:28px auto 0;max-width:46ch;font-size:clamp(1.05rem,.98rem + .4vw,1.25rem);color:var(--earth-soft)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:36px}
+.landscape{display:block;width:100%;height:clamp(300px,39vw,520px);margin-top:clamp(8px,2vw,24px);overflow:visible}
+.scroll-cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-cue i{display:block;width:1.5px;height:28px;background:var(--cream);transform-origin:top;animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* Histoire */
+.split{display:grid;gap:56px}
+@media (min-width:900px){ .split{grid-template-columns:5fr 7fr;gap:72px} .split-title{position:sticky;top:130px;align-self:start} }
+.split-title .h2{margin-top:18px}
+.split-title .lede{margin-top:24px}
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:clamp(48px,8vw,96px)}
+.step{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@media (min-width:600px){ .step{grid-template-columns:200px minmax(0,1fr);align-items:center;gap:32px} }
+.step-art{aspect-ratio:1/1;max-width:200px;width:100%;border-radius:28px;background:var(--sand);display:grid;place-items:center;overflow:hidden}
+.step-art svg{width:78%;height:78%}
+.step-when{font-family:var(--mono);font-size:.8rem;color:var(--mango-ink);letter-spacing:.06em;text-transform:uppercase}
+.step h3{font-size:clamp(1.5rem,1.2rem + 1.2vw,2.2rem);margin:8px 0 10px}
+.step p{color:var(--earth-soft);max-width:52ch}
+
+/* Bento */
+.bento-head{display:grid;gap:22px;margin-bottom:clamp(40px,6vw,72px)}
+.bento{display:grid;grid-template-columns:minmax(0,1fr);grid-auto-flow:dense;gap:14px}
+@media (min-width:700px){ .bento{grid-template-columns:repeat(2,minmax(0,1fr))} .b-big{grid-column:span 2;grid-row:span 2} .b-c{grid-column:span 2} .b-min{grid-column:span 2} }
+@media (min-width:1080px){ .bento{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px} .b-big{grid-column:span 2;grid-row:span 2} .b-c{grid-column:span 2} .b-min{grid-column:span 4} }
+.cell{border-radius:28px;padding:clamp(22px,2.4vw,32px);background:var(--paper);border:1px solid var(--line);position:relative;overflow:hidden;min-width:0;transition:transform .7s var(--ease)}
+.cell:hover{transform:translateY(-4px)}
+.cell h3{font-size:1.1rem;font-family:var(--body);font-weight:600;letter-spacing:0;line-height:1.3}
+.big-num{font-family:var(--display);font-weight:800;font-size:clamp(3rem,2rem + 3vw,4.6rem);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.big-num small{font-size:.38em;font-weight:600;letter-spacing:0;margin-left:.12em;color:var(--earth-soft)}
+.cell p{color:var(--earth-soft);font-size:.98rem}
+.b-big{background:linear-gradient(160deg,#FFF4DC 0%,#FBE3B4 100%);display:flex;flex-direction:column;gap:18px}
+.b-big svg{width:100%;max-width:440px;margin-inline:auto;height:auto}
+.b-big .trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;border-top:1px solid var(--line);padding-top:18px}
+.trio div{display:grid;gap:2px}
+.trio b{font-family:var(--display);font-size:clamp(1.5rem,1.2rem + 1vw,2.1rem);font-weight:700;font-variant-numeric:tabular-nums}
+.trio span{font-size:.82rem;color:var(--earth-soft)}
+.b-c{background:var(--mango);border-color:transparent;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.b-c p{color:var(--earth)}
+.gauge{height:12px;border-radius:99px;background:rgba(59,42,30,.15);overflow:hidden}
+.gauge i{display:block;height:100%;width:40%;background:var(--earth);border-radius:99px;transform-origin:0 50%}
+.b-a{background:var(--sand)}
+.b-f{background:#E7EBD6}
+.b-min{display:grid;gap:22px;align-items:center}
+@media (min-width:700px){ .b-min{grid-template-columns:auto minmax(0,1fr);gap:40px} }
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chips li{padding:.5em 1em;border-radius:99px;background:var(--sand);font-size:.92rem;font-weight:500}
+.callout{fill:none;stroke:var(--earth);stroke-width:1.2}
+.lbl{font-family:var(--body);font-size:13px;font-weight:600;fill:var(--earth)}
+
+/* Origines */
+.origin-grid{display:grid;gap:56px;align-items:center}
+@media (min-width:960px){ .origin-grid{grid-template-columns:6fr 5fr;gap:80px} }
+.map-card{background:var(--paper);border:1px solid var(--line);border-radius:32px;padding:clamp(16px,3vw,36px);position:relative}
+.map-card svg{width:100%;height:auto;display:block}
+.region{transform-box:fill-box;transform-origin:center}
+.region circle{fill:var(--mango);fill-opacity:.85}
+.region .halo{fill:var(--mango);fill-opacity:.22;animation:halo 3s ease-out infinite}
+.region:nth-of-type(2) .halo{animation-delay:.6s}.region:nth-of-type(3) .halo{animation-delay:1.2s}.region:nth-of-type(4) .halo{animation-delay:1.8s}
+@keyframes halo{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.region .halo{transform-box:fill-box;transform-origin:center}
+.map-lbl{font-family:var(--body);font-size:12.5px;font-weight:600;fill:var(--earth)}
+.map-sub{font-family:var(--mono);font-size:10px;fill:var(--earth-soft)}
+.facts{display:grid;gap:0;margin:32px 0 0;border-top:1px solid var(--line)}
+.facts div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.facts dt{color:var(--earth-soft);font-size:.96rem}
+.facts dd{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,1rem + .8vw,1.6rem);text-align:right;font-variant-numeric:tabular-nums}
+.where{margin-top:28px;display:grid;gap:10px}
+.where h3{font-family:var(--body);font-size:1rem;font-weight:600;letter-spacing:0}
+.where ul{margin:0;padding-left:1.1em;color:var(--earth-soft);display:grid;gap:4px}
+.marquee{margin-top:clamp(72px,10vw,140px);overflow:hidden;border-block:1px solid var(--line);padding-block:22px;white-space:nowrap}
+.marquee-track{display:inline-flex;gap:48px;animation:marq 38s linear infinite;padding-right:48px}
+.marquee span{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,2rem + 4vw,6rem);letter-spacing:-.03em;color:transparent;-webkit-text-stroke:1.5px var(--earth);line-height:1}
+.marquee span.fill{color:var(--mango);-webkit-text-stroke:0}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* Crise */
+.crise{background:linear-gradient(180deg,var(--cream) 0%,#F3E3CA 14%,#F1DFC5 86%,var(--cream) 100%)}
+.crise::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.1;mix-blend-mode:multiply;background:radial-gradient(60% 40% at 80% 20%,rgba(178,58,31,.5),transparent 70%)}
+.crise .kicker{color:var(--alert)}
+.scrub{font-family:var(--display);font-weight:600;font-size:clamp(1.6rem,1.1rem + 2.4vw,3.3rem);line-height:1.12;letter-spacing:-.02em;max-width:24ch;margin-top:28px;text-wrap:pretty}
+.scrub .w{display:inline-block;white-space:pre}
+.scrub mark{background:none;color:var(--alert)}
+.crise-row{display:grid;gap:16px;margin-top:clamp(56px,8vw,96px)}
+@media (min-width:900px){ .crise-row{grid-template-columns:7fr 5fr} }
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:28px;padding:clamp(22px,3vw,36px);min-width:0;position:relative;overflow:hidden}
+.panel h3{font-size:clamp(1.3rem,1.1rem + .8vw,1.8rem)}
+.panel .chart{width:100%;height:auto;display:block;margin-top:18px}
+.ax{font-family:var(--mono);font-size:11px;fill:var(--earth-soft)}
+.bar-val{font-family:var(--display);font-weight:700;font-size:20px;fill:var(--earth)}
+.grid-l{stroke:var(--line);stroke-width:1}
+.bad-mango{display:grid;place-items:center;background:radial-gradient(70% 70% at 50% 45%,#FBE7D0,var(--paper))}
+.bad-mango svg{width:min(320px,90%);height:auto}
+.fly{animation:buzz 5s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.fly.f2{animation-duration:6.5s;animation-delay:-2s}.fly.f3{animation-duration:4.2s;animation-delay:-1s}
+@keyframes buzz{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(14px,-10px) rotate(12deg)}50%{transform:translate(-6px,-18px) rotate(-8deg)}75%{transform:translate(-14px,4px) rotate(6deg)}}
+.wing{animation:flap .12s linear infinite alternate;transform-box:fill-box;transform-origin:bottom center}
+@keyframes flap{to{transform:scaleY(.45)}}
+.stack{margin-top:clamp(72px,10vw,120px);display:grid;gap:28px;padding-bottom:6vh}
+.stack-head{margin-bottom:12px}
+.stack-card{position:sticky;top:calc(100px + var(--i) * 14px + env(safe-area-inset-top,0px));background:var(--paper);border:1px solid var(--line);border-radius:32px;padding:clamp(26px,4vw,52px);display:grid;gap:22px;box-shadow:0 -12px 40px -24px rgba(59,42,30,.35);transform-origin:50% 0;min-height:clamp(300px,40vw,380px);align-content:start}
+@media (min-width:860px){ .stack-card{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:end;gap:48px} }
+.stack-card .big-num{font-size:clamp(3.2rem,2rem + 5vw,7rem);color:var(--alert)}
+.stack-card:nth-child(5) .big-num{color:var(--leaf)}
+.stack-card h3{font-size:clamp(1.5rem,1.2rem + 1.3vw,2.4rem);margin-bottom:12px}
+.stack-card p{color:var(--earth-soft);font-size:clamp(1rem,.95rem + .25vw,1.12rem);max-width:56ch}
+.hope{margin-top:clamp(72px,10vw,120px);display:grid;gap:28px}
+@media (min-width:900px){ .hope{grid-template-columns:5fr 7fr;gap:72px;align-items:center} }
+.cmp{display:grid;gap:22px}
+.cmp-row{display:grid;gap:8px}
+.cmp-row header{display:flex;justify-content:space-between;gap:12px;font-size:.95rem}
+.cmp-row header b{font-family:var(--display);font-size:1.4rem;font-variant-numeric:tabular-nums}
+.cmp-track{height:18px;border-radius:99px;background:rgba(59,42,30,.08);overflow:hidden}
+.cmp-track i{display:block;height:100%;border-radius:99px;transform-origin:0 50%}
+.cmp-bad i{width:75%;background:var(--alert)}
+.cmp-good i{width:5%;background:var(--leaf)}
+.quote{margin-top:28px;padding-left:20px;border-left:3px solid var(--leaf);color:var(--earth);font-size:1.05rem;max-width:52ch}
+
+/* Transformer */
+.tf-head{display:grid;gap:28px;align-items:center}
+@media (min-width:960px){ .tf-head{grid-template-columns:7fr 5fr;gap:64px} }
+.tf-head .h2{max-width:none;font-size:clamp(2.2rem,1.1rem + 4.2vw,5rem)}
+.split-mango{width:min(360px,80%);margin-inline:auto;height:auto;display:block;overflow:visible}
+.accordion{margin-top:clamp(56px,8vw,96px)}
+.slices{list-style:none;margin:0;padding:0;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;-webkit-overflow-scrolling:touch}
+.slice{flex:0 0 min(84%,360px);scroll-snap-align:start;border-radius:28px;background:var(--paper);border:1px solid var(--line);overflow:hidden;position:relative;outline:none}
+.slice:focus-visible{box-shadow:0 0 0 3px var(--leaf)}
+.slice:nth-child(3n+1){background:#FFF1D6}.slice:nth-child(3n+2){background:var(--sand)}.slice:nth-child(3n){background:#ECEFDC}
+.slice-tab{display:none}
+.slice-body{padding:22px;display:grid;gap:12px}
+.slice-art{border-radius:20px;background:rgba(255,251,243,.7);overflow:hidden;aspect-ratio:5/4;display:grid;place-items:center}
+.slice-art svg{width:86%;height:auto;transition:transform .9s var(--ease)}
+.slice:hover .slice-art svg{transform:scale(1.05)}
+.slice h3{font-size:1.5rem}
+.slice p{color:var(--earth-soft);font-size:.98rem}
+.slice .jobs{font-size:.88rem;color:var(--earth)}
+.slice .jobs b{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mango-ink);display:block;margin-bottom:2px}
+.swipe-hint{margin-top:10px}
+@media (min-width:1100px){
+  .slices{overflow:visible;height:560px;gap:10px;padding-bottom:0;scroll-snap-type:none}
+  .slice{flex:0 0 64px;transition:flex-grow .9s var(--ease),flex-basis .9s var(--ease);cursor:pointer}
+  .slice.is-open{flex:1 1 auto;cursor:default}
+  .slice-tab{display:flex;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 0;transition:opacity .4s}
+  .slice-tab span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:-.01em;white-space:nowrap}
+  .slice-tab i{width:12px;height:12px;border-radius:99px;background:var(--mango)}
+  .slice.is-open .slice-tab{opacity:0;pointer-events:none}
+  .slice-body{position:absolute;inset:0;width:560px;padding:32px;align-content:start;opacity:0;transform:translateY(16px);transition:opacity .5s .15s,transform .8s .15s var(--ease);pointer-events:none}
+  .slice.is-open .slice-body{opacity:1;transform:none;pointer-events:auto}
+  .slice-art{aspect-ratio:auto;height:280px}
+  .slice-art svg{height:100%;width:auto}
+  .slice h3{font-size:2rem}
+  .swipe-hint{display:none}
+}
+.diversify{margin-top:clamp(72px,10vw,120px);display:grid;gap:28px}
+.div-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line)}
+@media (min-width:700px){ .div-list{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px} }
+@media (min-width:1080px){ .div-list{grid-template-columns:repeat(3,minmax(0,1fr))} }
+.div-list li{padding:22px 0;border-bottom:1px solid var(--line);display:grid;gap:6px}
+.div-list b{font-family:var(--display);font-size:1.3rem;font-weight:700}
+.div-list span{color:var(--earth-soft);font-size:.96rem}
+
+/* Agir */
+.agir{background:var(--earth);color:var(--cream);border-radius:clamp(28px,5vw,56px) clamp(28px,5vw,56px) 0 0;margin-top:clamp(40px,6vw,80px);overflow:hidden}
+.agir::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 50% at 85% 10%,rgba(244,163,0,.28),transparent 70%),radial-gradient(40% 40% at 10% 90%,rgba(126,154,82,.22),transparent 70%);pointer-events:none}
+.agir .kicker{color:var(--gold)}
+.agir .h2{color:var(--cream);max-width:20ch;font-size:clamp(2.6rem,1.4rem + 5vw,6.2rem)}
+.agir .lede{color:rgba(251,246,236,.75);margin-top:24px}
+.acts{display:grid;gap:14px;margin-top:clamp(48px,7vw,80px)}
+@media (min-width:760px){ .acts{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.act{border-radius:28px;padding:clamp(24px,3vw,36px);background:rgba(251,246,236,.06);border:1px solid rgba(251,246,236,.14);display:grid;gap:14px;align-content:start;transition:transform .7s var(--ease),background-color .4s;position:relative}
+.act:hover{transform:translateY(-6px);background:rgba(251,246,236,.1)}
+.act svg{width:40px;height:40px;color:var(--gold)}
+.act h3{font-size:clamp(1.4rem,1.2rem + .8vw,1.9rem);color:var(--cream)}
+.act p{color:rgba(251,246,236,.75)}
+.share-box{display:grid;gap:12px}
+.share-text{font-size:.92rem;background:rgba(0,0,0,.18);border-radius:16px;padding:14px 16px;color:rgba(251,246,236,.85);user-select:all}
+.share-status{font-family:var(--mono);font-size:.78rem;color:var(--gold);min-height:1.2em}
+.finale{margin-top:clamp(80px,12vw,160px);font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,1rem + 5vw,6rem);letter-spacing:-.035em;line-height:.98;max-width:18ch;text-wrap:balance}
+.finale em{font-style:normal;color:var(--mango)}
+.agir-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.agir .btn-line{color:var(--cream);border-color:var(--cream)}
+.agir .btn-line:hover{background:var(--cream);color:var(--earth)}
+
+/* Footer */
+.footer{background:var(--earth);color:rgba(251,246,236,.75);padding-block:64px calc(40px + env(safe-area-inset-bottom,0px));font-size:.92rem;border-top:1px solid rgba(251,246,236,.12)}
+.footer-grid{display:grid;gap:40px}
+@media (min-width:900px){ .footer-grid{grid-template-columns:4fr 8fr} }
+.footer h2{font-size:1.4rem;color:var(--cream);margin-bottom:14px}
+.footer h3{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+.footer ol{margin:0;padding-left:1.4em;display:grid;gap:8px}
+.footer a{color:var(--cream);text-underline-offset:3px}
+.foot-nav{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px 18px}
+.legal{margin-top:40px;padding-top:24px;border-top:1px solid rgba(251,246,236,.12);display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:space-between;align-items:center;font-size:.82rem}
+.owner{display:inline-flex;align-items:center;gap:12px;margin-left:auto;text-decoration:none;color:var(--cream);font-family:var(--mono);font-size:.82rem;letter-spacing:.02em;padding:6px 14px 6px 6px;border-radius:999px;background:rgba(251,246,236,.06);border:1px solid rgba(251,246,236,.14);transition:background-color .3s,transform .5s var(--ease)}
+.owner:hover{background:rgba(251,246,236,.12);transform:translateY(-2px)}
+.owner-logo{width:44px;height:44px;flex:none;background:#FFFFFF;border-radius:50%;display:grid;place-items:center}
+.owner-logo img{width:30px;height:30px;display:block}
+
+/* Idle illustration motion */
+.idle-bob{animation:bob 4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.idle-spin{animation:spin 18s linear infinite;transform-box:fill-box;transform-origin:center}
+.idle-drip{animation:drip 2.4s ease-in infinite;transform-box:fill-box}
+.idle-flame{animation:flame 1.2s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.idle-fall{animation:fall 2.8s linear infinite;transform-box:fill-box}
+@keyframes bob{50%{transform:translateY(-5px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes drip{0%{transform:translateY(0);opacity:0}15%{opacity:1}80%{transform:translateY(26px);opacity:1}100%{transform:translateY(30px);opacity:0}}
+@keyframes flame{to{transform:scale(.86,1.12)}}
+@keyframes fall{0%{transform:translateY(-6px);opacity:0}20%{opacity:1}100%{transform:translateY(34px);opacity:0}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="tree" viewBox="0 0 60 70"><rect x="27" y="40" width="6" height="30" rx="2"/><circle cx="30" cy="28" r="22"/><circle cx="14" cy="38" r="14"/><circle cx="46" cy="38" r="14"/></symbol>
+    <path id="mangoShape" d="M100 18C150 18 186 62 184 118C182 176 140 208 96 206C48 204 16 168 18 120C20 84 44 60 64 44C76 34 86 18 100 18Z"/>
+    <linearGradient id="gGreen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A9C25A"/><stop offset="1" stop-color="#4F7D2E"/></linearGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7D66E"/><stop offset="1" stop-color="#E3A21A"/></linearGradient>
+    <radialGradient id="gRipe" cx=".7" cy=".3" r=".9"><stop offset="0" stop-color="#E2471B"/><stop offset=".35" stop-color="#F07A12"/><stop offset=".8" stop-color="#F4A300"/><stop offset="1" stop-color="#F2C14E"/></radialGradient>
+    <radialGradient id="gFlesh" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#FFD067"/><stop offset="1" stop-color="#F4A300"/></radialGradient>
+    <clipPath id="clipL"><rect x="0" y="0" width="100" height="220"/></clipPath>
+    <clipPath id="clipR"><rect x="100" y="0" width="110" height="220"/></clipPath>
+  </defs>
+</svg>
+
+<header class="nav" id="nav" data-state="green">
+  <div class="nav-pill">
+    <a class="brand" href="#top" aria-label="Mangue de Côte d'Ivoire, retour en haut">
+      <svg class="brand-mark" viewBox="0 0 200 220" aria-hidden="true">
+        <g class="mk-half mk-l" style="transform-origin:100px 120px"><use href="#mangoShape" class="mk-skin" clip-path="url(#clipL)" fill="#7FA03A"/></g>
+        <g class="mk-half mk-r" style="transform-origin:100px 120px"><use href="#mangoShape" class="mk-skin" clip-path="url(#clipR)" fill="#7FA03A"/></g>
+        <path d="M100 18 C102 8 108 2 116 0" stroke="#3B2A1E" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <circle class="mk-fly" cx="168" cy="40" r="16" fill="#3B2A1E"/><circle class="mk-fly" cx="30" cy="70" r="13" fill="#3B2A1E"/>
+      </svg>
+      <span>Mangue de Côte d'Ivoire</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#histoire">Histoire</a></li>
+      <li><a href="#nutrition">Nutrition</a></li>
+      <li><a href="#origines">Origines</a></li>
+      <li><a href="#crise">La crise</a></li>
+      <li><a href="#transformer">Transformer</a></li>
+      <li><a href="#agir">Agir</a></li>
+    </ul>
+    <a class="btn btn-dark nav-cta" href="#agir">Soutenir les producteurs</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+    <i class="progress" id="progress" aria-hidden="true"></i>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Menu principal">
+  <ul>
+    <li><a href="#histoire">Histoire</a></li>
+    <li><a href="#nutrition">Nutrition</a></li>
+    <li><a href="#origines">Origines</a></li>
+    <li><a href="#crise">La crise</a></li>
+    <li><a href="#transformer">Transformer</a></li>
+    <li><a href="#agir">Agir</a></li>
+  </ul>
+  <a class="btn btn-dark" href="#agir" style="align-self:flex-start">Soutenir les producteurs</a>
+</nav>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="top" aria-labelledby="h1">
+  <div class="wrap">
+    <h1 id="h1" class="reveal">Le fruit d'or ivoirien <span class="pill-img" role="img" aria-label="Tranches de mangue mûre"></span> mérite mieux qu'une <em>frontière fermée.</em></h1>
+    <p class="hero-sub reveal">Près de 100&nbsp;000 personnes vivent de la mangue en Côte d'Ivoire. Depuis le 1<sup>er</sup> août 2026, l'Europe refuse le fruit frais. Voici son histoire, sa crise, et ce que chacun peut faire.</p>
+    <div class="hero-ctas reveal">
+      <a class="btn btn-dark" href="#histoire">Découvrir l'histoire
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+      <a class="btn btn-line" href="#agir">Comment aider</a>
+    </div>
+  </div>
+  <svg class="landscape" viewBox="0 -110 1440 470" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Un verger au coucher du soleil, où le soleil est une mangue qui mûrit">
+    <path class="hill-far" d="M0 230C240 180 480 200 720 190C960 180 1200 170 1440 210L1440 360L0 360Z" fill="#EBDAB7"/>
+    <g id="heroSun" transform="translate(620 40)">
+      <use href="#mangoShape" fill="url(#gGreen)"/>
+      <use id="mangoGold" href="#mangoShape" fill="url(#gGold)" opacity=".55"/>
+      <use id="mangoRipe" href="#mangoShape" fill="url(#gRipe)" opacity="0"/>
+      <path d="M100 18C102 8 108 2 116 0" stroke="#3B2A1E" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="132" cy="6" rx="26" ry="9" transform="rotate(-18 132 6)" fill="#2F5D3A"/>
+      <ellipse cx="70" cy="70" rx="16" ry="30" transform="rotate(30 70 70)" fill="#FFF6DD" opacity=".35"/>
+    </g>
+    <g class="hill-mid">
+      <path d="M0 270C200 240 420 250 640 262C860 274 1100 240 1440 255L1440 360L0 360Z" fill="#D8C08E"/>
+      <g fill="#6E8B47" opacity=".75">
+        <use href="#tree" x="60" y="200" width="60" height="70"/><use href="#tree" x="150" y="196" width="54" height="62"/><use href="#tree" x="250" y="205" width="62" height="72"/>
+        <use href="#tree" x="380" y="210" width="56" height="64"/><use href="#tree" x="930" y="208" width="60" height="70"/><use href="#tree" x="1040" y="196" width="56" height="64"/>
+        <use href="#tree" x="1150" y="190" width="62" height="72"/><use href="#tree" x="1270" y="198" width="54" height="62"/><use href="#tree" x="1360" y="196" width="60" height="70"/>
+      </g>
+    </g>
+    <g class="hill-front">
+      <path d="M0 310C260 290 520 300 760 312C1000 324 1220 296 1440 304L1440 360L0 360Z" fill="#2F5D3A"/>
+      <g fill="#24492D">
+        <use href="#tree" x="20" y="240" width="76" height="88"/><use href="#tree" x="300" y="246" width="70" height="80"/><use href="#tree" x="470" y="250" width="66" height="76"/>
+        <use href="#tree" x="890" y="252" width="70" height="80"/><use href="#tree" x="1120" y="236" width="80" height="92"/><use href="#tree" x="1330" y="240" width="76" height="86"/>
+      </g>
+    </g>
+  </svg>
+  <div class="scroll-cue" aria-hidden="true">Défiler<i></i></div>
+</section>
+
+<!-- HISTOIRE -->
+<section class="chapter" id="histoire" aria-labelledby="h-hist">
+  <div class="wrap split">
+    <div class="split-title">
+      <span class="kicker">Histoire</span>
+      <h2 class="h2" id="h-hist">Quatre mille ans de voyage <span class="pill-img leafy" role="img" aria-label="Feuillage de manguier"></span> jusqu'au Nord ivoirien.</h2>
+      <p class="lede">Née en Asie, la mangue a suivi les marchands et les navigateurs avant de s'enraciner dans les savanes du Poro, du Tchologo et de la Bagoué.</p>
+    </div>
+    <!-- Dates checked against Phytojournal (2017), Wikipedia (Mango), agroforesterie.org and La Côte d'Ivoire agricole. -->
+    <ol class="timeline">
+      <li class="step">
+        <div class="step-art" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="44" fill="#ECEFDC"/><path d="M28 86 C40 60 52 70 60 44 C68 70 80 60 92 86Z" fill="#2F5D3A"/><use href="#mangoShape" transform="translate(44 30) scale(.16)" fill="url(#gGreen)"/><use href="#mangoShape" transform="translate(62 46) scale(.14)" fill="url(#gGold)"/></svg></div>
+        <div><p class="step-when">Il y a 4&nbsp;000 à 6&nbsp;000 ans</p><h3>Née en Asie</h3><p>Le manguier est originaire d'une région située entre le nord-est de l'Inde, le Bangladesh et le Myanmar. En Inde, sa culture remonte à 4&nbsp;000 à 6&nbsp;000 ans.<a class="src" href="#sources">[11]</a><a class="src" href="#sources">[12]</a></p></div>
+      </li>
+      <li class="step">
+        <div class="step-art" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="44" fill="#E3EEF0"/><path d="M30 74h60l-8 14H38z" fill="#6B4A2E"/><path d="M60 30v44" stroke="#3B2A1E" stroke-width="3"/><path d="M60 32 L84 66 H60z" fill="#FFF6DD"/><path d="M58 38 L40 66 H58z" fill="#F2E6D0"/><path d="M20 94 q10 -6 20 0 t20 0 t20 0 t20 0" stroke="#5E9AA8" stroke-width="3" fill="none"/></svg></div>
+        <div><p class="step-when">IX<sup>e</sup>–X<sup>e</sup> siècles</p><h3>Portée par les marchands</h3><p>Des marchands arabes et persans l'apportent sur les côtes d'Afrique de l'Est, par les routes commerciales de l'océan Indien.<a class="src" href="#sources">[12]</a></p></div>
+      </li>
+      <li class="step">
+        <div class="step-art" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="44" fill="#F2E6D0"/><path d="M38 30 h44 l-6 60 h-32z" fill="#FFF6DD" stroke="#3B2A1E" stroke-width="2"/><path d="M46 46 q14 10 28 0 M46 60 q14 10 28 0" stroke="#E8730C" stroke-width="2.5" fill="none"/><circle cx="60" cy="76" r="5" fill="#2F5D3A"/></svg></div>
+        <div><p class="step-when">À partir du XVI<sup>e</sup> siècle</p><h3>Arrivée en Afrique de l'Ouest</h3><p>Depuis leur comptoir de Goa, en Inde, les Portugais diffusent la mangue vers les côtes d'Afrique de l'Est et de l'Ouest.<a class="src" href="#sources">[11]</a><a class="src" href="#sources">[12]</a></p></div>
+      </li>
+      <li class="step">
+        <div class="step-art" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="44" fill="#ECEFDC"/><rect x="20" y="78" width="80" height="8" rx="4" fill="#C9AE7A"/><g fill="#2F5D3A"><use href="#tree" x="22" y="40" width="28" height="40"/><use href="#tree" x="46" y="34" width="30" height="44"/><use href="#tree" x="70" y="40" width="28" height="40"/></g><circle cx="38" cy="56" r="3" fill="#F4A300"/><circle cx="64" cy="50" r="3" fill="#F4A300"/><circle cx="86" cy="58" r="3" fill="#F4A300"/></svg></div>
+        <div><p class="step-when">Années 1980</p><h3>Une culture de rente au Nord</h3><p>Pour moins dépendre du café et du cacao, la Côte d'Ivoire fait de la mangue une culture d'exportation vers 1980.<a class="src" href="#sources">[13]</a> Les exportations passent de 71 tonnes en 1981 à plus de 40&nbsp;000 tonnes en 2019, depuis les vergers du Poro, du Tchologo, de la Bagoué et du Hambol.<a class="src" href="#sources">[14]</a></p></div>
+      </li>
+      <li class="step">
+        <div class="step-art" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="44" fill="#FFF1D6"/><rect x="28" y="62" width="64" height="30" rx="4" fill="#C9864A"/><path d="M28 70h64M28 80h64" stroke="#8C5A2E" stroke-width="2"/><use href="#mangoShape" transform="translate(32 34) scale(.14)" fill="url(#gRipe)"/><use href="#mangoShape" transform="translate(52 30) scale(.15)" fill="url(#gRipe)"/><use href="#mangoShape" transform="translate(70 36) scale(.13)" fill="url(#gRipe)"/></svg></div>
+        <div><p class="step-when">Aujourd'hui</p><h3>La Kent, ambassadrice</h3><p>La Côte d'Ivoire figure parmi les premiers expéditeurs de mangues Kent vers l'Europe par bateau.<a class="src" href="#sources">[15]</a> Le pays est le premier exportateur de mangues d'Afrique de l'Ouest et le troisième fournisseur de l'Europe.<a class="src" href="#sources">[4]</a> La mangue est son deuxième fruit d'exportation après la banane.<a class="src" href="#sources">[2]</a></p></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- NUTRITION -->
+<section class="chapter" id="nutrition" aria-labelledby="h-nut" style="padding-top:0">
+  <div class="wrap">
+    <div class="bento-head">
+      <span class="kicker">Nutrition</span>
+      <h2 class="h2" id="h-nut">Ce qu'il y a dans une mangue.</h2>
+      <p class="lede">Valeurs indicatives pour 100&nbsp;g de mangue crue, d'après la base USDA FoodData Central.<a class="src" href="#sources">[9]</a></p>
+    </div>
+    <div class="bento">
+      <article class="cell b-big">
+        <h3>Une coupe de mangue mûre</h3>
+        <svg viewBox="0 0 360 260" role="img" aria-label="Coupe d'une mangue avec ses principaux nutriments">
+          <g transform="translate(110 22) scale(.95)">
+            <use href="#mangoShape" fill="#E8730C"/>
+            <use href="#mangoShape" transform="translate(12 12) scale(.88)" fill="url(#gFlesh)"/>
+            <ellipse cx="100" cy="118" rx="30" ry="58" fill="#F2DDA8" stroke="#D9B66E" stroke-width="3"/>
+            <path d="M100 66v104M84 84l32 0M80 118h40M84 152h32" stroke="#D9B66E" stroke-width="2"/>
+          </g>
+          <path class="callout draw" d="M150 70 L96 40 H14"/>
+          <text class="lbl" x="14" y="32">Vitamine C</text>
+          <path class="callout draw" d="M140 170 L96 200 H14"/>
+          <text class="lbl" x="14" y="192">Bêta-carotène</text>
+          <path class="callout draw" d="M270 80 L300 52 H350"/>
+          <text class="lbl" x="350" y="44" text-anchor="end">Fibres</text>
+          <path class="callout draw" d="M262 180 L300 214 H350"/>
+          <text class="lbl" x="350" y="206" text-anchor="end">Potassium</text>
+        </svg>
+        <div class="trio">
+          <div><b><span data-count="60">60</span></b><span>kilocalories</span></div>
+          <div><b><span data-count="13.7" data-dec="1">13,7</span>&nbsp;g</b><span>de sucres naturels</span></div>
+          <div><b><span data-count="1.6" data-dec="1">1,6</span>&nbsp;g</b><span>de fibres</span></div>
+        </div>
+      </article>
+      <article class="cell b-c">
+        <h3>Vitamine C</h3>
+        <div>
+          <div class="big-num"><span data-count="36.4" data-dec="1">36,4</span><small>mg</small></div>
+          <p style="margin-top:10px">Soit environ 40&nbsp;% de la valeur quotidienne de référence américaine (90&nbsp;mg).</p>
+        </div>
+        <div class="gauge" role="img" aria-label="Environ 40 pour cent des besoins quotidiens"><i></i></div>
+      </article>
+      <article class="cell b-a">
+        <h3>Vitamine A</h3>
+        <div class="big-num" style="margin-top:14px"><span data-count="54">54</span><small>µg</small></div>
+        <p style="margin-top:10px">En équivalent rétinol, issue surtout des 640&nbsp;µg de bêta-carotène qui colorent la chair.</p>
+      </article>
+      <article class="cell b-f">
+        <h3>Folates (B9)</h3>
+        <div class="big-num" style="margin-top:14px"><span data-count="43">43</span><small>µg</small></div>
+        <p style="margin-top:10px">Plus 0,9&nbsp;mg de vitamine E, 4,2&nbsp;µg de vitamine K et 0,12&nbsp;mg de vitamine B6.</p>
+      </article>
+      <article class="cell b-min">
+        <div>
+          <h3>Minéraux</h3>
+          <div class="big-num" style="margin-top:10px"><span data-count="168">168</span><small>mg de potassium</small></div>
+        </div>
+        <ul class="chips" aria-label="Autres minéraux présents">
+          <li>Potassium 168&nbsp;mg</li><li>Magnésium 10&nbsp;mg</li><li>Cuivre 0,11&nbsp;mg</li>
+        </ul>
+      </article>
+    </div>
+    <p class="note" style="margin-top:18px">Valeurs moyennes USDA (fiche 169910, mangue crue). Elles varient selon la variété et la maturité.</p>
+  </div>
+</section>
+
+<!-- ORIGINES -->
+<section class="chapter" id="origines" aria-labelledby="h-ori" style="padding-top:0">
+  <div class="wrap origin-grid">
+    <div class="map-card" id="map">
+      <svg viewBox="0 0 380 410" role="img" aria-label="Carte stylisée de la Côte d'Ivoire : les régions du Poro, du Tchologo, de la Bagoué et du Hambol au nord, le port d'Abidjan au sud">
+        <path d="M45 33L72 21L108 27L150 18L192 24L222 36L246 63L282 57L324 54L357 84L366 132L348 180L342 240L330 288L348 336L318 339L282 333L222 342L162 363L102 381L69 386L75 336L45 294L24 258L15 210L36 183L30 144L45 120L36 84L48 57Z" fill="#F2E6D0" stroke="#3B2A1E" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M60 130 C140 150 260 120 350 150" stroke="#E6D3B0" stroke-width="1.2" fill="none" stroke-dasharray="3 5"/>
+        <text class="map-sub" x="300" y="166">savanes</text>
+        <text class="map-sub" x="250" y="300">forêts</text>
+        <path id="route" d="M184 80 C190 160 236 250 282 327" fill="none" stroke="#E8730C" stroke-width="2.5" stroke-dasharray="6 6"/>
+        <g class="region"><circle class="halo" cx="133" cy="77" r="22"/><circle cx="133" cy="77" r="9"/></g>
+        <g class="region"><circle class="halo" cx="184" cy="80" r="22"/><circle cx="184" cy="80" r="9"/></g>
+        <g class="region"><circle class="halo" cx="216" cy="62" r="22"/><circle cx="216" cy="62" r="9"/></g>
+        <g class="region"><circle class="halo" cx="216" cy="160" r="22"/><circle cx="216" cy="160" r="9"/></g>
+        <text class="map-lbl" x="96" y="108">Bagoué</text><text class="map-sub" x="96" y="121">Boundiali</text>
+        <text class="map-lbl" x="150" y="44">Poro</text><text class="map-sub" x="150" y="57">Korhogo</text>
+        <text class="map-lbl" x="232" y="96">Tchologo</text><text class="map-sub" x="232" y="109">Ferkessédougou</text>
+        <text class="map-lbl" x="234" y="164">Hambol</text><text class="map-sub" x="234" y="177">Katiola</text>
+        <rect x="276" y="321" width="12" height="12" rx="2" fill="#3B2A1E"/>
+        <text class="map-lbl" x="228" y="356">Port d'Abidjan</text>
+      </svg>
+      <p class="note" style="margin-top:8px">Carte stylisée, non à l'échelle. Quatre des neuf régions productrices sont représentées.</p>
+    </div>
+    <div>
+      <span class="kicker">Origines</span>
+      <h2 class="h2" id="h-ori" style="margin-top:18px">Où pousse la mangue ivoirienne.</h2>
+      <p class="lede" style="margin-top:22px">Le verger national couvre neuf régions, surtout dans le Nord. La campagne de commercialisation commence en général en mars.<a class="src" href="#sources">[3]</a></p>
+      <dl class="facts">
+        <div><dt>Surface de vergers</dt><dd><span data-count="20000">20&nbsp;000</span>&nbsp;ha<a class="src" href="#sources">[1]</a></dd></div>
+        <div><dt>Production annuelle</dt><dd>~<span data-count="180000">180&nbsp;000</span>&nbsp;t<a class="src" href="#sources">[1]</a></dd></div>
+        <div><dt>Producteurs villageois</dt><dd>~<span data-count="5000">5&nbsp;000</span><a class="src" href="#sources">[1]</a></dd></div>
+        <div><dt>Variétés</dt><dd style="font-size:1.05rem">Amélie, Kent, Keitt, Brooks<a class="src" href="#sources">[13]</a><a class="src" href="#sources">[14]</a></dd></div>
+      </dl>
+      <div class="where">
+        <h3>Où l'acheter</h3>
+        <ul>
+          <li>Sur les marchés locaux, pendant la campagne</li>
+          <li>Auprès des coopératives et groupements de producteurs</li>
+          <li>Auprès des unités de transformation (séchage, jus)</li>
+          <li>Par l'interprofession, l'OIA Inter-Mangues</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Poro</span><span class="fill">Kent</span><span>Tchologo</span><span class="fill">Amélie</span><span>Bagoué</span><span class="fill">Keitt</span><span>Hambol</span><span class="fill">Brooks</span>
+      <span>Poro</span><span class="fill">Kent</span><span>Tchologo</span><span class="fill">Amélie</span><span>Bagoué</span><span class="fill">Keitt</span><span>Hambol</span><span class="fill">Brooks</span>
+    </div>
+  </div>
+</section>
+
+<!-- CRISE -->
+<section class="chapter crise" id="crise" aria-labelledby="h-crise">
+  <div class="wrap">
+    <span class="kicker">La crise</span>
+    <h2 class="h2" id="h-crise" style="margin-top:18px;max-width:20ch">Une mouche, et l'Europe ferme sa porte.</h2>
+    <p class="scrub" id="scrub">Depuis le 1er août 2026, les mangues fraîches de Côte d'Ivoire ne peuvent plus entrer dans l'Union européenne. Les inspecteurs européens ont intercepté des lots infestés par la <mark>mouche des fruits</mark>, année après année, alors que les règles avaient été durcies dès 2019.</p>
+    <p class="note" style="margin-top:18px">Annonce du ministre de l'Agriculture, Bruno Nabagné Koné, le 15 octobre 2026.<a class="src" href="#sources">[1]</a><a class="src" href="#sources">[4]</a></p>
+
+    <div class="crise-row">
+      <div class="panel" id="chart">
+        <h3>Lots interceptés par l'UE</h3>
+        <svg class="chart" viewBox="0 0 360 240" role="img" aria-label="Interceptions : 32 en 2024, 12 en 2025, 27 en 2026">
+          <line class="grid-l" x1="40" x2="350" y1="200" y2="200"/>
+          <line class="grid-l" x1="40" x2="350" y1="154.3" y2="154.3" stroke-dasharray="3 4"/>
+          <line class="grid-l" x1="40" x2="350" y1="108.6" y2="108.6" stroke-dasharray="3 4"/>
+          <line class="grid-l" x1="40" x2="350" y1="62.9" y2="62.9" stroke-dasharray="3 4"/>
+          <text class="ax" x="32" y="204" text-anchor="end">0</text>
+          <text class="ax" x="32" y="158" text-anchor="end">10</text>
+          <text class="ax" x="32" y="112" text-anchor="end">20</text>
+          <text class="ax" x="32" y="67" text-anchor="end">30</text>
+          <rect class="bar" x="70" y="53.7" width="64" height="146.3" rx="8" fill="#8C7560"/>
+          <rect class="bar" x="170" y="145.1" width="64" height="54.9" rx="8" fill="#8C7560"/>
+          <rect class="bar" x="270" y="76.6" width="64" height="123.4" rx="8" fill="#B23A1F"/>
+          <text class="bar-val" x="102" y="44" text-anchor="middle">32</text>
+          <text class="bar-val" x="202" y="136" text-anchor="middle">12</text>
+          <text class="bar-val" x="302" y="67" text-anchor="middle">27</text>
+          <text class="ax" x="102" y="222" text-anchor="middle">2024</text>
+          <text class="ax" x="202" y="222" text-anchor="middle">2025</text>
+          <text class="ax" x="302" y="222" text-anchor="middle">2026</text>
+        </svg>
+        <p class="note" style="margin-top:6px">Source : ministère de l'Agriculture.<a class="src" href="#sources">[1]</a></p>
+      </div>
+      <div class="panel bad-mango">
+        <svg viewBox="0 0 260 260" role="img" aria-label="Une mangue attaquée par des mouches des fruits">
+          <g transform="translate(30 22)">
+            <use href="#mangoShape" fill="url(#gRipe)"/>
+            <use href="#mangoShape" fill="#B23A1F" opacity=".18"/>
+            <circle cx="70" cy="110" r="9" fill="#7A3B1A" opacity=".55"/><circle cx="120" cy="150" r="13" fill="#7A3B1A" opacity=".45"/><circle cx="140" cy="88" r="6" fill="#7A3B1A" opacity=".5"/><circle cx="92" cy="170" r="5" fill="#7A3B1A" opacity=".5"/>
+            <path d="M120 60 l-10 24 l12 10 l-8 22" stroke="#5B2A12" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M100 18C102 8 108 2 116 0" stroke="#3B2A1E" stroke-width="5" fill="none" stroke-linecap="round"/>
+          </g>
+          <g class="fly"><g transform="translate(196 52)"><ellipse class="wing" cx="-6" cy="-6" rx="7" ry="10" fill="#FFFFFF" opacity=".75"/><ellipse class="wing" cx="6" cy="-6" rx="7" ry="10" fill="#FFFFFF" opacity=".75"/><ellipse cx="0" cy="2" rx="5" ry="9" fill="#3B2A1E"/></g></g>
+          <g class="fly f2"><g transform="translate(40 196)"><ellipse class="wing" cx="-5" cy="-5" rx="6" ry="8" fill="#FFFFFF" opacity=".75"/><ellipse class="wing" cx="5" cy="-5" rx="6" ry="8" fill="#FFFFFF" opacity=".75"/><ellipse cx="0" cy="2" rx="4" ry="7" fill="#3B2A1E"/></g></g>
+          <g class="fly f3"><g transform="translate(214 172)"><ellipse class="wing" cx="-5" cy="-5" rx="6" ry="8" fill="#FFFFFF" opacity=".75"/><ellipse class="wing" cx="5" cy="-5" rx="6" ry="8" fill="#FFFFFF" opacity=".75"/><ellipse cx="0" cy="2" rx="4" ry="7" fill="#3B2A1E"/></g></g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="stack" id="stack">
+      <div class="stack-head">
+        <h2 class="h2" style="font-size:clamp(2rem,1.2rem + 3vw,3.6rem)">Ce que vivent les producteurs.</h2>
+      </div>
+      <article class="stack-card" style="--i:0">
+        <div class="big-num">50–80&nbsp;%</div>
+        <div><h3>Le ravageur</h3><p>La mouche des fruits peut détruire de 50 à 80&nbsp;% d'une récolte.<a class="src" href="#sources">[8]</a> Dans des vergers du Nord étudiés en 2023 et 2024, l'espèce dominante était <i>Bactrocera dorsalis</i>, et les parcelles non traitées dépassaient 75&nbsp;% d'infestation.<a class="src" href="#sources">[7]</a></p></div>
+      </article>
+      <article class="stack-card" style="--i:1">
+        <div class="big-num">66&nbsp;%</div>
+        <div><h3>Un marché perdu</h3><p>En 2025, l'Union européenne a acheté environ 35&nbsp;000 tonnes de mangues ivoiriennes, pour près de 25 millions de dollars. Cela représentait environ 66&nbsp;% des recettes d'exportation de la filière, estimées à 38 millions de dollars. France, Belgique et Pays-Bas étaient les premiers acheteurs.<a class="src" href="#sources">[1]</a><a class="src" href="#sources">[3]</a></p></div>
+      </article>
+      <article class="stack-card" style="--i:2">
+        <div class="big-num">100&nbsp;000</div>
+        <div><h3>L'impact humain</h3><p>Environ 100&nbsp;000 personnes vivent de la mangue en Côte d'Ivoire, dont près de 5&nbsp;000 producteurs villageois.<a class="src" href="#sources">[1]</a> La menace économique dépasse 7 milliards de FCFA.<a class="src" href="#sources">[5]</a></p></div>
+      </article>
+      <article class="stack-card" style="--i:3">
+        <div class="big-num">15&nbsp;%</div>
+        <div><h3>Une minorité, des conséquences pour tous</h3><p>Selon le ministère, 15&nbsp;% des exportateurs sont responsables de plus des deux tiers des rejets.<a class="src" href="#sources">[5]</a> Quinze opérateurs et neuf stations de conditionnement sont écartés de la campagne 2027.<a class="src" href="#sources">[1]</a></p></div>
+      </article>
+      <article class="stack-card" style="--i:4">
+        <div class="big-num">2027</div>
+        <div><h3>Le compte à rebours</h3><p>L'État mobilise 3,5 milliards de FCFA, plus de 3 millions de pièges avant la prochaine floraison, une traçabilité de chaque lot jusqu'au verger et un audit indépendant. Objectif&nbsp;: la campagne 2027, sans date garantie, car la réouverture dépend aussi de la Commission européenne.<a class="src" href="#sources">[1]</a></p></div>
+      </article>
+    </div>
+
+    <div class="hope">
+      <div>
+        <h2 class="h2" style="font-size:clamp(2rem,1.2rem + 3vw,3.6rem)">Une crise que l'on sait traiter.</h2>
+        <p class="quote">Le gouvernement ne conteste pas la décision européenne, fondée sur des règles phytosanitaires internationales que la Côte d'Ivoire a elle-même adoptées.<a class="src" href="#sources">[10]</a></p>
+      </div>
+      <div class="panel cmp" id="cmp">
+        <h3 style="font-size:1.2rem">Infestation dans des vergers du Nord, 2023–2024<a class="src" href="#sources">[7]</a></h3>
+        <div class="cmp-row cmp-bad"><header><span>Parcelles non traitées</span><b>&gt;&nbsp;75&nbsp;%</b></header><div class="cmp-track"><i></i></div></div>
+        <div class="cmp-row cmp-good"><header><span>Lutte intégrée (pièges et traitements)</span><b>&lt;&nbsp;5&nbsp;%</b></header><div class="cmp-track"><i></i></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMER -->
+<section class="chapter" id="transformer" aria-labelledby="h-tf">
+  <div class="wrap">
+    <div class="tf-head">
+      <div>
+        <span class="kicker">Transformer</span>
+        <h2 class="h2" id="h-tf" style="margin-top:18px">Chaque mangue transformée ici <span class="pill-img" role="img" aria-label="Mangue séchée"></span> garde sa valeur en Côte d'Ivoire.</h2>
+        <p class="lede" style="margin-top:24px">Un fruit trop petit pour l'export, une récolte bloquée au port : transformés sur place, ils deviennent des produits vendus toute l'année, ici et dans la région CEDEAO.</p>
+      </div>
+      <svg class="split-mango" id="splitMango" viewBox="-40 0 280 220" role="img" aria-label="Une mangue coupée en deux, prête à être transformée">
+        <ellipse id="stone" cx="100" cy="118" rx="26" ry="54" fill="#F2DDA8" stroke="#D9B66E" stroke-width="3"/>
+        <g id="halfL"><use href="#mangoShape" clip-path="url(#clipL)" fill="#E8730C"/><use href="#mangoShape" clip-path="url(#clipL)" transform="translate(10 12) scale(.9)" fill="url(#gFlesh)"/></g>
+        <g id="halfR"><use href="#mangoShape" clip-path="url(#clipR)" fill="#E8730C"/><use href="#mangoShape" clip-path="url(#clipR)" transform="translate(10 12) scale(.9)" fill="url(#gFlesh)"/></g>
+      </svg>
+    </div>
+
+    <div class="accordion">
+      <ul class="slices" id="slices">
+        <li class="slice is-open" tabindex="0" aria-label="Mangue séchée">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Mangue séchée</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><g class="idle-spin"><circle cx="160" cy="34" r="15" fill="#F4A300"/><g stroke="#F4A300" stroke-width="3" stroke-linecap="round"><path d="M160 10v-6M160 64v-6M136 34h-6M190 34h-6M143 17l-4-4M181 55l-4-4M177 17l4-4M139 55l4-4"/></g></g><rect x="26" y="66" width="6" height="80" rx="2" fill="#6B4A2E"/><rect x="168" y="66" width="6" height="80" rx="2" fill="#6B4A2E"/><rect x="20" y="78" width="160" height="8" rx="3" fill="#C9AE7A"/><rect x="20" y="114" width="160" height="8" rx="3" fill="#C9AE7A"/><g fill="#E8730C"><rect x="34" y="68" width="22" height="12" rx="6"/><rect x="62" y="68" width="22" height="12" rx="6"/><rect x="90" y="68" width="22" height="12" rx="6"/><rect x="118" y="68" width="22" height="12" rx="6"/><rect x="146" y="68" width="18" height="12" rx="6"/></g><g fill="#F4A300"><rect x="34" y="104" width="22" height="12" rx="6"/><rect x="62" y="104" width="22" height="12" rx="6"/><rect x="90" y="104" width="22" height="12" rx="6"/><rect x="118" y="104" width="22" height="12" rx="6"/><rect x="146" y="104" width="18" height="12" rx="6"/></g><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Mangue séchée</h3>
+            <p>Elle se conserve des mois sans chaîne du froid et se vend bien après la fin de la récolte.</p>
+            <p class="jobs"><b>Emplois</b>Unités de séchage villageoises, souvent tenues par des groupements de femmes.</p>
+          </div>
+        </li>
+        <li class="slice" tabindex="0" aria-label="Jus et nectar">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Jus et nectar</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><path d="M62 34h22v14c0 8 14 12 14 28v60a8 8 0 0 1-8 8H56a8 8 0 0 1-8-8V76c0-16 14-20 14-28z" fill="#FFF6DD" stroke="#3B2A1E" stroke-width="2.5"/><path d="M50 84h46v52a6 6 0 0 1-6 6H56a6 6 0 0 1-6-6z" fill="#F4A300"/><rect x="60" y="26" width="26" height="10" rx="3" fill="#2F5D3A"/><rect x="54" y="96" width="38" height="22" rx="3" fill="#FFF6DD" opacity=".85"/><path d="M118 92h44l-6 52h-32z" fill="#FFF6DD" stroke="#3B2A1E" stroke-width="2.5"/><path d="M120 104h40l-4 38h-32z" fill="#F4A300" class="idle-bob"/><path d="M150 70l-8 60" stroke="#E8730C" stroke-width="4" stroke-linecap="round"/><circle class="idle-drip" cx="140" cy="146" r="3.5" fill="#E8730C"/><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Jus et nectar</h3>
+            <p>Ils valorisent les fruits trop petits ou abîmés pour l'export, qui seraient sinon perdus.</p>
+            <p class="jobs"><b>Emplois</b>Petites unités de pressage, embouteillage, distribution locale.</p>
+          </div>
+        </li>
+        <li class="slice" tabindex="0" aria-label="Purée et pulpe">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Purée et pulpe</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><path d="M36 84h128a64 52 0 0 1-128 0z" fill="#C9864A"/><ellipse cx="100" cy="84" rx="64" ry="12" fill="#F4A300"/><path class="idle-spin" d="M100 84m-26 0a26 6 0 1 0 52 0a18 4 0 1 0-36 0a10 2 0 1 0 20 0" fill="none" stroke="#E8730C" stroke-width="2.5"/><rect x="128" y="34" width="8" height="52" rx="4" transform="rotate(28 132 60)" fill="#6B4A2E"/><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Purée et pulpe</h3>
+            <p>La base de pâtisseries, yaourts, boissons et aliments pour bébés, vendue aux industries agroalimentaires.</p>
+            <p class="jobs"><b>Emplois</b>Unités de transformation, laiteries, boulangeries.</p>
+          </div>
+        </li>
+        <li class="slice" tabindex="0" aria-label="Confiture et marmelade">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Confiture</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><g class="idle-bob"><rect x="62" y="50" width="76" height="92" rx="14" fill="#E8730C"/><rect x="70" y="58" width="8" height="70" rx="4" fill="#FFF6DD" opacity=".35"/><rect x="58" y="36" width="84" height="18" rx="5" fill="#2F5D3A"/><path d="M58 45h84" stroke="#24492D" stroke-width="2"/><rect x="76" y="86" width="48" height="30" rx="4" fill="#FFF6DD"/><path d="M84 96h32M84 106h22" stroke="#C9AE7A" stroke-width="3" stroke-linecap="round"/></g><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Confiture et marmelade</h3>
+            <p>Un produit simple à fabriquer, qui vaut bien plus que le fruit frais au kilo.</p>
+            <p class="jobs"><b>Emplois</b>Artisans, coopératives, épiceries fines.</p>
+          </div>
+        </li>
+        <li class="slice" tabindex="0" aria-label="Chutney et achards">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Chutney et achards</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><path d="M24 100h70a35 28 0 0 1-70 0z" fill="#3B2A1E"/><ellipse cx="59" cy="100" rx="35" ry="8" fill="#C9642E"/><path d="M106 100h70a35 28 0 0 1-70 0z" fill="#2F5D3A"/><ellipse cx="141" cy="100" rx="35" ry="8" fill="#E8D27A"/><g class="idle-bob"><rect x="44" y="86" width="10" height="10" rx="2" fill="#F4A300"/><rect x="60" y="82" width="9" height="9" rx="2" fill="#E8730C"/><rect x="128" y="86" width="10" height="10" rx="2" fill="#A9C25A"/><rect x="144" y="82" width="9" height="9" rx="2" fill="#7E9A52"/></g><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Chutney et achards</h3>
+            <p>Des condiments à base de mangue verte ou mûre, qui se conservent et s'exportent facilement.</p>
+            <p class="jobs"><b>Emplois</b>Restauration, traiteurs, petites marques locales.</p>
+          </div>
+        </li>
+        <li class="slice" tabindex="0" aria-label="Glaces et sorbets">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Glaces et sorbets</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><path d="M78 88l22 58 22-58z" fill="#D8A866"/><path d="M84 96l26 30M92 92l22 26M80 108l22-20M88 124l28-32" stroke="#B9863F" stroke-width="2"/><circle cx="100" cy="76" r="26" fill="#F4A300"/><circle cx="100" cy="48" r="21" fill="#F2C14E"/><path d="M80 84q4 10 8 0" fill="#F4A300"/><circle class="idle-drip" cx="84" cy="96" r="3.5" fill="#F4A300"/><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Glaces et sorbets</h3>
+            <p>La pulpe congelée alimente glaciers et restaurants toute l'année.</p>
+            <p class="jobs"><b>Emplois</b>Glaciers, hôtellerie, restauration.</p>
+          </div>
+        </li>
+        <li class="slice" tabindex="0" aria-label="Poudre de mangue">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Poudre de mangue</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><path d="M36 146C64 100 136 100 164 146z" fill="#E9A93A"/><path d="M66 128c12-10 46-12 66 0" stroke="#F2C14E" stroke-width="3" fill="none"/><g transform="rotate(-20 110 60)"><ellipse cx="92" cy="60" rx="22" ry="12" fill="#C9AE7A"/><ellipse cx="92" cy="56" rx="18" ry="7" fill="#E9A93A"/><rect x="112" y="56" width="50" height="8" rx="4" fill="#6B4A2E"/></g><g fill="#E9A93A"><circle class="idle-fall" cx="84" cy="80" r="2.5"/><circle class="idle-fall" cx="94" cy="76" r="2" style="animation-delay:-.9s"/><circle class="idle-fall" cx="104" cy="82" r="2.5" style="animation-delay:-1.7s"/></g><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Poudre de mangue</h3>
+            <p>Séchée puis moulue, elle devient une épice acidulée et une base de smoothies.</p>
+            <p class="jobs"><b>Emplois</b>Moulins, conditionnement, export de niche.</p>
+          </div>
+        </li>
+        <li class="slice" tabindex="0" aria-label="Beurre de noyau">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Beurre de noyau</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><ellipse cx="68" cy="96" rx="32" ry="46" fill="#D8C29A" stroke="#B49A6C" stroke-width="2.5"/><path d="M68 54v84M52 70q16 6 32 0M48 92q20 6 40 0M52 116q16 6 32 0" stroke="#B49A6C" stroke-width="2" fill="none"/><g class="idle-bob"><rect x="112" y="88" width="64" height="54" rx="10" fill="#FFF6DD" stroke="#3B2A1E" stroke-width="2.5"/><ellipse cx="144" cy="88" rx="32" ry="8" fill="#F6E7B8" stroke="#3B2A1E" stroke-width="2.5"/><path d="M132 86q12-12 24 0" fill="#FCF1CF" stroke="#E0C98B" stroke-width="2"/><rect x="122" y="106" width="44" height="16" rx="3" fill="#2F5D3A"/></g><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Beurre de noyau</h3>
+            <p>L'amande du noyau donne un beurre utilisé en cosmétique, à la manière du karité.</p>
+            <p class="jobs"><b>Emplois</b>Cosmétique artisanale, coopératives de femmes.</p>
+          </div>
+        </li>
+        <li class="slice" tabindex="0" aria-label="Farine et aliment pour bétail">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Farine et aliment bétail</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><path d="M48 52q22-10 44 0l8 86q-30 10-60 0z" fill="#E6D3B0" stroke="#B49A6C" stroke-width="2.5"/><path d="M56 48q14 10 28 0" stroke="#6B4A2E" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="50" y="90" width="48" height="14" fill="#2F5D3A"/><path d="M110 142c6-16 40-18 60 0z" fill="#F6ECD6"/><g fill="#C9864A" class="idle-bob"><ellipse cx="128" cy="130" rx="4" ry="2.5"/><ellipse cx="142" cy="126" rx="4" ry="2.5"/><ellipse cx="154" cy="132" rx="4" ry="2.5"/><ellipse cx="118" cy="138" rx="4" ry="2.5"/></g><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Farine et aliment pour bétail</h3>
+            <p>Amandes et pelures séchées deviennent farine ou complément pour l'élevage.</p>
+            <p class="jobs"><b>Emplois</b>Éleveurs, fabricants d'aliments pour animaux.</p>
+          </div>
+        </li>
+        <li class="slice" tabindex="0" aria-label="Compost et biogaz">
+          <div class="slice-tab" aria-hidden="true"><i></i><span>Compost et biogaz</span></div>
+          <div class="slice-body">
+            <div class="slice-art"><svg viewBox="0 0 200 160" aria-hidden="true"><path d="M20 146c10-50 80-54 96 0z" fill="#6B4A2E"/><path d="M40 112q10-12 22-4M66 104q12-8 22 2M50 126q12-10 24-2" stroke="#F4A300" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M124 146v-40a28 28 0 0 1 56 0v40z" fill="#2F5D3A"/><rect x="146" y="64" width="8" height="18" fill="#3B2A1E"/><path class="idle-flame" d="M150 66c-10-10-4-22 0-28c4 6 10 18 0 28z" fill="#F4A300"/><path class="idle-flame" d="M150 64c-5-5-2-11 0-14c2 3 5 9 0 14z" fill="#F2C14E"/><rect x="10" y="146" width="180" height="4" rx="2" fill="#D8C08E"/></svg></div>
+            <h3>Compost et biogaz</h3>
+            <p>Pelures et invendus retournent au verger en engrais, ou produisent de l'énergie.</p>
+            <p class="jobs"><b>Emplois</b>Producteurs, unités de compostage, filière énergie.</p>
+          </div>
+        </li>
+      </ul>
+      <p class="note swipe-hint">Faites glisser pour voir les dix produits.</p>
+    </div>
+
+    <div class="diversify">
+      <h2 class="h2" style="font-size:clamp(2rem,1.2rem + 3vw,3.6rem)">Diversifier les marchés.</h2>
+      <ul class="div-list">
+        <li><b>Consommation locale</b><span>Faire de la mangue un produit du quotidien en Côte d'Ivoire, frais ou transformé.</span></li>
+        <li><b>Marchés régionaux</b><span>Vendre dans l'espace CEDEAO, avec moins de distance et des règles communes.</span></li>
+        <li><b>Autres marchés internationaux</b><span>Ne plus dépendre d'un seul acheteur pour l'essentiel des recettes.</span></li>
+        <li><b>Bio et équitable</b><span>Viser des niches mieux payées, avec des producteurs certifiés.</span></li>
+        <li><b>Froid et séchage au Nord</b><span>Installer chaînes du froid et unités de séchage près des vergers pour réduire les pertes.</span></li>
+        <li><b>Traçabilité</b><span>Suivre chaque lot du verger au port, une exigence qui rassure tous les acheteurs.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- AGIR -->
+<section class="chapter agir" id="agir" aria-labelledby="h-agir">
+  <div class="wrap" style="position:relative">
+    <span class="kicker">Agir</span>
+    <h2 class="h2" id="h-agir" style="margin-top:18px">Ce que vous pouvez faire dès cette saison.</h2>
+    <p class="lede">La filière ne se sauvera pas seulement à Bruxelles. Elle se renforce aussi à chaque achat fait ici.</p>
+    <div class="acts">
+      <article class="act">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 14h24l-2 18H10z"/><path d="M14 14a6 6 0 0 1 12 0"/></svg>
+        <h3>Acheter local et de saison</h3>
+        <p>Pendant la campagne, à partir de mars, choisissez la mangue des vergers ivoiriens sur les marchés.</p>
+      </article>
+      <article class="act">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="12" y="8" width="16" height="26" rx="4"/><path d="M12 18h16M16 4h8"/></svg>
+        <h3>Choisir le transformé ivoirien</h3>
+        <p>Jus, mangue séchée, confitures : lisez les étiquettes et privilégiez ce qui est produit en Côte d'Ivoire.</p>
+      </article>
+      <article class="act">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="14" cy="14" r="5"/><circle cx="27" cy="16" r="4"/><path d="M5 32c1-6 5-9 9-9s8 3 9 9M22 32c1-5 3-7 6-7s5 2 6 7"/></svg>
+        <h3>Acheter aux coopératives</h3>
+        <p>Commander directement aux groupements de producteurs rémunère mieux ceux qui cultivent.</p>
+      </article>
+      <article class="act share-box">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10" cy="20" r="4"/><circle cx="30" cy="10" r="4"/><circle cx="30" cy="30" r="4"/><path d="M14 18l12-6M14 22l12 6"/></svg>
+        <h3>En parler autour de vous</h3>
+        <p class="share-text" id="shareText">Depuis le 1er août 2026, l'UE refuse les mangues fraîches ivoiriennes à cause de la mouche des fruits. Près de 100 000 personnes vivent de cette filière. Acheter local et transformé en Côte d'Ivoire, c'est les soutenir.</p>
+        <div><button class="btn btn-mango" id="copyBtn" type="button">Copier le message</button></div>
+        <p class="share-status" id="shareStatus" aria-live="polite"></p>
+      </article>
+    </div>
+    <p class="finale">Le fruit d'or mérite mieux qu'une frontière fermée. Il mérite <em>ses propres marchés.</em></p>
+    <div class="agir-ctas">
+      <a class="btn btn-mango" href="#transformer">Voir les produits transformés</a>
+      <a class="btn btn-line" href="#top">Revenir au début</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer" id="sources">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h2>Mangue de Côte d'Ivoire</h2>
+        <p>Page d'information sur la filière mangue ivoirienne, réalisée à partir de sources publiques consultées en octobre 2026.</p>
+        <ul class="foot-nav" style="margin-top:18px">
+          <li><a href="#histoire">Histoire</a></li><li><a href="#nutrition">Nutrition</a></li><li><a href="#origines">Origines</a></li><li><a href="#crise">La crise</a></li><li><a href="#transformer">Transformer</a></li><li><a href="#agir">Agir</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Sources</h3>
+        <ol>
+          <li><a href="https://www.aip.ci/cote-divoire-aip-filiere-mangue-cinq-mesures-annoncees-pour-favoriser-la-reprise-des-exportations-vers-leurope/" target="_blank" rel="noopener">Ministère de l'Agriculture, via l'AIP, 15 octobre 2026</a></li>
+          <li><a href="https://www.agenceecofin.com/actualites-agro/1610-142498-mangue-en-cote-d-ivoire-une-course-contre-la-montre-pour-retrouver-le-marche-de-l-ue" target="_blank" rel="noopener">Agence Ecofin, octobre 2026</a></li>
+          <li><a href="https://www.foodbusinessmea.com/cote-divoire-targets-2027-eu-mango-return-after-fruit-fly-ban/" target="_blank" rel="noopener">Food Business MEA, d'après Trade Map, 17 octobre 2026</a></li>
+          <li><a href="https://connectionivoirienne.net/2026/10/15/filiere-mangue-bruno-nabagne-kone-sonne-la-revolte-apres-les-sanctions-de-leurope/" target="_blank" rel="noopener">Connectionivoirienne, 15 octobre 2026</a></li>
+          <li><a href="https://www.zappingmedias.com/cote-divoire-lunion-europeenne-suspend-les-importations-de-mangues-ivoiriennes/" target="_blank" rel="noopener">Zappingmedias, d'après le ministère de l'Agriculture</a></li>
+          <li><a href="https://www.pressafrik.com/La-Cote-d-Ivoire-s-organise-suite-a-l-interdiction-d-exporter-des-mangues-fraiches-vers-l-UE_a313230.html" target="_blank" rel="noopener">RFI, repris par PressAfrik</a></li>
+          <li><a href="https://link.springer.com/article/10.1007/s12600-026-01371-1" target="_blank" rel="noopener">Haba et al., <i>Phytoparasitica</i> 54, 46 (2026)</a></li>
+          <li><a href="https://www.freshplaza.com/north-america/article/9820269/we-are-expecting-a-good-crop-of-mangos-for-the-2026-season/" target="_blank" rel="noopener">FreshPlaza, 2026</a></li>
+          <li><a href="https://fdc.nal.usda.gov/food-details/169910/nutrients" target="_blank" rel="noopener">USDA FoodData Central, Mangos, raw (FDC 169910)</a></li>
+          <li><a href="https://rti.info/2026/10/17/" target="_blank" rel="noopener">RTI Info, 17 octobre 2026</a></li>
+          <li><a href="https://phytojournal.com/archives/2017.v6.i6.2226/mango-history-origin-and-distribution" target="_blank" rel="noopener">« Mango: History, origin and distribution », Journal of Pharmacognosy and Phytochemistry, 2017</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Mango" target="_blank" rel="noopener">Wikipédia (en), Mango, section Histoire</a></li>
+          <li><a href="https://agroforesterie.org/mangue.php" target="_blank" rel="noopener">Agroforesterie Côte d'Ivoire, la mangue</a></li>
+          <li><a href="https://lacotedivoireagricole.ci/cote-divoire-situation-de-la-filiere-mangue-en-2022/" target="_blank" rel="noopener">La Côte d'Ivoire agricole, situation de la filière mangue en 2022</a></li>
+          <li><a href="https://www.cbi.eu/market-information/fresh-fruit-vegetables/mangoes/market-entry" target="_blank" rel="noopener">CBI, Entering the European market for mangoes</a></li>
+        </ol>
+      </div>
+    </div>
+    <div class="legal">
+      <span>Illustrations originales. Photos de vergers ivoiriens à venir.</span>
+      <a class="owner" href="https://github.com/BlackSun225" target="_blank" rel="noopener" aria-label="Projet de @BlackSun225, voir le profil GitHub">
+        <span class="owner-logo"><img src="data:image/png;base64,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" alt="" width="128" height="128"></span>
+        <span>@BlackSun225</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap = !!(window.gsap && window.ScrollTrigger);
+  var nav = document.getElementById('nav');
+  var body = document.body;
+  var lenis = null;
+
+  /* Menu */
+  var menuBtn = document.getElementById('menuBtn');
+  function setMenu(open){
+    body.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuBtn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    if (lenis) { open ? lenis.stop() : lenis.start(); }
+  }
+  menuBtn.addEventListener('click', function(){ setMenu(!body.classList.contains('menu-open')); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setMenu(false); });
+
+  /* Anchor links */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      var target = id.length > 1 ? document.querySelector(id) : null;
+      if (!target) return;
+      e.preventDefault();
+      setMenu(false);
+      if (lenis) lenis.scrollTo(target, { offset: id === '#top' ? 0 : -76, duration: 1.4 });
+      else target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+
+  /* Progress bar */
+  var bar = document.getElementById('progress');
+  var ticking = false;
+  function progress(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
+    bar.style.transform = 'scaleX(' + p + ')';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){ if (!ticking){ ticking = true; requestAnimationFrame(progress); } }, { passive: true });
+  progress();
+
+  /* Nav state: the logo mango follows the story */
+  var states = { top:'green', histoire:'gold', nutrition:'ripe', origines:'ripe', crise:'attacked', transformer:'split', agir:'ripe' };
+  var links = document.querySelectorAll('.nav-links a');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var id = en.target.id;
+      nav.setAttribute('data-state', states[id] || 'ripe');
+      links.forEach(function(l){ l.classList.toggle('is-active', l.getAttribute('href') === '#' + id); });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(states).forEach(function(id){ var el = document.getElementById(id); if (el) io.observe(el); });
+
+  /* Count-up */
+  var fmt = function(v, dec){ return v.toLocaleString('fr-FR', { minimumFractionDigits: dec, maximumFractionDigits: dec }); };
+  var counters = document.querySelectorAll('[data-count]');
+  if (!reduce && 'IntersectionObserver' in window){
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        cio.unobserve(en.target);
+        var el = en.target, end = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec || '0', 10), t0 = null, dur = 1600;
+        function step(t){
+          if (!t0) t0 = t;
+          var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 4);
+          el.textContent = fmt(end * e, dec);
+          if (k < 1) requestAnimationFrame(step); else el.textContent = fmt(end, dec);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: .6 });
+    counters.forEach(function(c){ cio.observe(c); });
+  }
+
+  /* Accordion */
+  var slices = Array.prototype.slice.call(document.querySelectorAll('.slice'));
+  var wide = window.matchMedia('(min-width:1100px)');
+  function openSlice(s){ slices.forEach(function(x){ x.classList.toggle('is-open', x === s); }); }
+  slices.forEach(function(s){
+    s.addEventListener('mouseenter', function(){ if (wide.matches) openSlice(s); });
+    s.addEventListener('focus', function(){ if (wide.matches) openSlice(s); });
+    s.addEventListener('click', function(){ if (wide.matches) openSlice(s); });
+    s.addEventListener('keydown', function(e){
+      if (!wide.matches) return;
+      var i = slices.indexOf(s);
+      if (e.key === 'ArrowRight' && slices[i+1]) { e.preventDefault(); slices[i+1].focus(); }
+      if (e.key === 'ArrowLeft' && slices[i-1]) { e.preventDefault(); slices[i-1].focus(); }
+    });
+  });
+
+  /* Copy share text */
+  var copyBtn = document.getElementById('copyBtn'), shareText = document.getElementById('shareText'), status = document.getElementById('shareStatus');
+  function selectText(){
+    var r = document.createRange(); r.selectNodeContents(shareText);
+    var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    status.textContent = 'Texte sélectionné : copiez-le avec votre appareil.';
+  }
+  copyBtn.addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(shareText.textContent.trim()).then(function(){
+        status.textContent = 'Message copié. Collez-le où vous voulez.';
+      }, selectText);
+    } catch (err) { selectText(); }
+  });
+
+  if (!hasGsap || reduce) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Smooth scroll */
+  if (window.Lenis){
+    try {
+      lenis = new Lenis({ lerp: .1, smoothWheel: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    } catch (e) { lenis = null; }
+  }
+
+  /* Hero entrance and ripening sun */
+  gsap.from('.hero .reveal', { y: 46, opacity: 0, duration: 1.3, stagger: .12, ease: 'expo.out', delay: .1 });
+  gsap.from('#heroSun', { y: 120, duration: 2, ease: 'expo.out', delay: .2 });
+  var ripen = gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 20%', scrub: .6 } });
+  ripen.to('#mangoGold', { opacity: 1, duration: .5 }, 0)
+       .to('#mangoRipe', { opacity: 1, duration: .5 }, .45)
+       .to('#heroSun', { y: -36, duration: 1 }, 0)
+       .to('.hill-mid', { y: 18, duration: 1 }, 0)
+       .to('.hill-front', { y: 34, duration: 1 }, 0);
+
+  /* Timeline: image scale-and-fade */
+  gsap.utils.toArray('.step').forEach(function(step){
+    var art = step.querySelector('.step-art');
+    var tl = gsap.timeline({ scrollTrigger: { trigger: step, start: 'top bottom', end: 'bottom top', scrub: true } });
+    tl.fromTo(art, { scale: .8, opacity: .5 }, { scale: 1, opacity: 1, duration: .4, ease: 'none' })
+      .to(art, { duration: .25 })
+      .to(art, { opacity: .2, scale: .94, duration: .35, ease: 'none' });
+    gsap.from(step.querySelectorAll('h3, p'), { y: 28, opacity: 0, stagger: .08, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: step, start: 'top 82%' } });
+  });
+
+  /* Bento */
+  gsap.from('.bento .cell', { y: 60, opacity: 0, duration: 1.2, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.bento', start: 'top 80%' } });
+  gsap.utils.toArray('.callout.draw').forEach(function(p){
+    var len = p.getTotalLength();
+    gsap.fromTo(p, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: '.b-big', start: 'top 70%' } });
+  });
+  gsap.from('.gauge i', { scaleX: 0, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: '.b-c', start: 'top 80%' } });
+
+  /* Map */
+  var route = document.getElementById('route');
+  var rlen = route.getTotalLength();
+  var mapTl = gsap.timeline({ scrollTrigger: { trigger: '#map', start: 'top 70%' } });
+  mapTl.from('.region', { scale: 0, duration: .8, stagger: .22, ease: 'back.out(2)' })
+       .fromTo(route, { strokeDasharray: rlen, strokeDashoffset: rlen }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut', onComplete: function(){ route.style.strokeDasharray = '6 6'; } }, '-=.3');
+
+  /* Crise: word-by-word scrub */
+  var scrub = document.getElementById('scrub');
+  (function split(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(child){
+      if (child.nodeType === 3){
+        var frag = document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach(function(part){
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          var s = document.createElement('span'); s.className = 'w'; s.textContent = part; frag.appendChild(s);
+        });
+        node.replaceChild(frag, child);
+      } else if (child.nodeType === 1) { split(child); }
+    });
+  })(scrub);
+  gsap.fromTo(scrub.querySelectorAll('.w'), { opacity: .12 }, { opacity: 1, stagger: .1, ease: 'none', scrollTrigger: { trigger: scrub, start: 'top 82%', end: 'bottom 40%', scrub: true } });
+
+  gsap.from('#chart .bar', { scaleY: 0, transformOrigin: 'center bottom', duration: 1.4, stagger: .18, ease: 'expo.out', scrollTrigger: { trigger: '#chart', start: 'top 75%' } });
+  gsap.from('#chart .bar-val', { opacity: 0, y: 10, duration: .8, stagger: .18, delay: .6, scrollTrigger: { trigger: '#chart', start: 'top 75%' } });
+
+  /* Card stacking */
+  var cards = gsap.utils.toArray('.stack-card');
+  cards.forEach(function(card, i){
+    if (i === cards.length - 1) return;
+    gsap.to(card, { scale: .93, opacity: .55, ease: 'none', scrollTrigger: { trigger: cards[i+1], start: 'top bottom', end: 'top 30%', scrub: true } });
+  });
+
+  gsap.from('#cmp .cmp-track i', { scaleX: 0, duration: 1.6, stagger: .25, ease: 'expo.out', scrollTrigger: { trigger: '#cmp', start: 'top 78%' } });
+
+  /* Transformer: the mango splits open */
+  var sp = gsap.timeline({ scrollTrigger: { trigger: '#splitMango', start: 'top 85%', end: 'center 35%', scrub: .6 } });
+  sp.to('#halfL', { x: -34, rotation: -9, svgOrigin: '100 120', duration: 1 }, 0)
+    .to('#halfR', { x: 34, rotation: 9, svgOrigin: '100 120', duration: 1 }, 0)
+    .from('#stone', { scale: .5, opacity: 0, svgOrigin: '100 118', duration: 1 }, 0);
+
+  gsap.from('.slice', { y: 60, opacity: 0, duration: 1.1, stagger: .05, ease: 'expo.out', scrollTrigger: { trigger: '.slices', start: 'top 85%' } });
+  gsap.from('.div-list li', { y: 30, opacity: 0, duration: 1, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.div-list', start: 'top 85%' } });
+
+  /* Agir */
+  gsap.from('.act', { y: 70, opacity: 0, duration: 1.2, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.acts', start: 'top 82%' } });
+  gsap.from('.finale', { y: 60, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.finale', start: 'top 85%' } });
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
