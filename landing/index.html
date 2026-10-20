@@ -683,10 +683,14 @@ p{margin:0}
         <h2 class="h2" id="h-tf" style="margin-top:18px">Chaque mangue transformée ici <span class="pill-img" role="img" aria-label="Mangue séchée"></span> garde sa valeur en Côte d'Ivoire.</h2>
         <p class="lede" style="margin-top:24px">Un fruit trop petit pour l'export, une récolte bloquée au port : transformés sur place, ils deviennent des produits vendus toute l'année, ici et dans la région CEDEAO.</p>
       </div>
-      <svg class="split-mango" id="splitMango" viewBox="-40 0 280 220" role="img" aria-label="Une mangue coupée en deux, prête à être transformée">
-        <ellipse id="stone" cx="100" cy="118" rx="26" ry="54" fill="#F2DDA8" stroke="#D9B66E" stroke-width="3"/>
-        <g id="halfL"><use href="#mangoShape" clip-path="url(#clipL)" fill="#E8730C"/><use href="#mangoShape" clip-path="url(#clipL)" transform="translate(10 12) scale(.9)" fill="url(#gFlesh)"/></g>
-        <g id="halfR"><use href="#mangoShape" clip-path="url(#clipR)" fill="#E8730C"/><use href="#mangoShape" clip-path="url(#clipR)" transform="translate(10 12) scale(.9)" fill="url(#gFlesh)"/></g>
+      <svg class="split-mango" id="splitMango" viewBox="-60 0 320 220" role="img" aria-label="Une mangue coupée en deux : sous la peau, la chair jaune entoure le noyau">
+        <g id="mgCore">
+          <use href="#mangoShape" transform="translate(22 25) scale(.78)" fill="url(#gFlesh)"/>
+          <ellipse id="stone" cx="100" cy="118" rx="26" ry="54" fill="#F2DDA8" stroke="#D9B66E" stroke-width="3"/>
+        </g>
+        <g id="halfL"><use href="#mangoShape" clip-path="url(#clipL)" fill="url(#gRipe)"/><ellipse cx="62" cy="88" rx="10" ry="28" fill="#FFFFFF" opacity=".25" transform="rotate(22 62 88)"/></g>
+        <g id="halfR"><use href="#mangoShape" clip-path="url(#clipR)" fill="url(#gRipe)"/></g>
+        <path id="mgCut" d="M100 16V208" stroke="#FFFFFF" stroke-width="2.5" stroke-dasharray="6 5" fill="none" opacity="0"/>
       </svg>
     </div>
 
@@ -1097,11 +1101,13 @@ p{margin:0}
 
   gsap.from('#cmp .cmp-track i', { scaleX: 0, duration: 1.6, stagger: .25, ease: 'expo.out', scrollTrigger: { trigger: '#cmp', start: 'top 78%' } });
 
-  /* Transformer: the mango splits open */
+  /* Transformer: the mango is cut, then its two halves open to show the flesh and the stone */
   var sp = gsap.timeline({ scrollTrigger: { trigger: '#splitMango', start: 'top 85%', end: 'center 35%', scrub: .6 } });
-  sp.to('#halfL', { x: -34, rotation: -9, svgOrigin: '100 120', duration: 1 }, 0)
-    .to('#halfR', { x: 34, rotation: 9, svgOrigin: '100 120', duration: 1 }, 0)
-    .from('#stone', { scale: .5, opacity: 0, svgOrigin: '100 118', duration: 1 }, 0);
+  sp.fromTo('#mgCut', { opacity: 1, scaleY: 0 }, { opacity: 1, scaleY: 1, svgOrigin: '100 16', duration: .18, ease: 'none' }, .02)
+    .to('#mgCut', { opacity: 0, duration: .1, ease: 'none' }, .24)
+    .to('#halfL', { x: -70, rotation: -8, svgOrigin: '100 120', duration: .76 }, .24)
+    .to('#halfR', { x: 70, rotation: 8, svgOrigin: '100 120', duration: .76 }, .24)
+    .from('#mgCore', { scale: .85, svgOrigin: '100 118', duration: .76 }, .24);
 
   gsap.from('.slice', { y: 60, opacity: 0, duration: 1.1, stagger: .05, ease: 'expo.out', scrollTrigger: { trigger: '.slices', start: 'top 85%' } });
   gsap.from('.div-list li', { y: 30, opacity: 0, duration: 1, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.div-list', start: 'top 85%' } });
