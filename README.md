@@ -5,15 +5,15 @@ Content about the Ivorian mango sector and the 2026 European Union suspension of
 ## Contents
 
 ```
-landing/index.html                              French scroll-driven landing page "Mangue de Côte d'Ivoire"
-prompts/prompt-landing-mangue-ivoirienne.md     the prompt used to build the landing page
-research/eu-suspension-2026.md                  research notes: causes, data, impact, response, sources
-motion/                                    TikTok teaser video, cover and source (see motion/README.md)
+landing/index.html                             French scroll-driven landing page "Mangue de Côte d'Ivoire"
+prompts/prompt-landing-mangue-ivoirienne.md    the prompt used to build the landing page
+research/eu-suspension-2026.md                 research notes: causes, data, impact, response, sources
+motion/                                        TikTok teaser video, cover and source (see motion/README.md)
 ```
 
 ## Landing page
 
-A single self-contained HTML file. Open `landing/index.html` in a browser; it needs an internet connection for fonts and for GSAP, ScrollTrigger and Lenis, which load from public CDNs.
+A single self-contained HTML file. Open `landing/index.html` in a browser; it needs an internet connection for fonts and for GSAP and ScrollTrigger, which load from public CDNs. Mouse-wheel scrolling is smoothed by a small built-in script.
 
 Chapters: history, nutrition, origins, the crisis, local processing, how to help. Every figure links to the numbered source list in the footer.
 
