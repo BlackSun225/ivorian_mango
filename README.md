@@ -8,6 +8,7 @@ Content about the Ivorian mango sector and the 2026 European Union suspension of
 landing/index.html                              French scroll-driven landing page "Mangue de Côte d'Ivoire"
 prompts/prompt-landing-mangue-ivoirienne.md     the prompt used to build the landing page
 research/eu-suspension-2026.md                  research notes: causes, data, impact, response, sources
+motion/                                    TikTok teaser video, cover and source (see motion/README.md)
 ```
 
 ## Landing page
