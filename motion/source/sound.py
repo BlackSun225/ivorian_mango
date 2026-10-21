@@ -275,41 +275,76 @@ def apply_reverb(x, ir, wet):
 # ---------- buses ----------
 bal, perc, low, padb, amb, fx, theme = (Bus() for _ in range(7))
 
-# The mango theme (C major pentatonic) and its minor version (A minor pentatonic), in 8th notes
-THEME = [("E5", 0), ("G5", 1), ("A5", 2), ("G5", 3), ("E5", 4), ("D5", 5), ("C5", 6),
-         ("D5", 8), ("E5", 9), ("G5", 10), ("E5", 11), ("D5", 12), ("C5", 13), ("A4", 14)]
-THEME_MIN = [("E5", 0), ("C5", 2), ("A4", 4), ("G4", 6), ("A4", 8), ("C5", 10), ("B4", 12), ("A4", 14)]
-BPM = 100; E8 = 60 / BPM / 2; S16 = E8 / 2; BAR = S16 * 16
-def play_theme(bus, t0, notes, vel=.6, octave=1.0, swing=0.0, pan=-.15):
+# The music is in 12/8, the lilting time of much West African music: 4 dotted beats per bar,
+# 12 eighth notes, at 100 dotted beats per minute (bar = 2.4 s, eighth = 0.2 s).
+BPM = 100; E8 = 60 / BPM / 3; BAR = E8 * 12
+
+# The mango theme (C major pentatonic, two bars) and its minor version for the crisis (A minor)
+THEME = [("E5", 0), ("G5", 2), ("A5", 3), ("G5", 5), ("E5", 6), ("D5", 8), ("C5", 9),
+         ("D5", 12), ("E5", 14), ("G5", 15), ("E5", 17), ("D5", 18), ("C5", 20), ("A4", 21)]
+THEME_MIN = [("E5", 0), ("C5", 3), ("A4", 6), ("G4", 9), ("A4", 12), ("C5", 15), ("B4", 18), ("A4", 21)]
+def play_theme(bus, t0, notes, vel=.6, octave=1.0, pan=-.15):
     for name, step in notes:
-        tt0 = t0 + step * E8 + (swing * E8 if step % 2 else 0)
+        tt0 = t0 + step * E8
         bus.put(tt0, balafon(nf(name) * octave, vel), 1, pan)
         bus.put(tt0 + .011, balafon(nf(name) * octave * 2, vel * .18), 1, -pan)
 
-OSTI = [[(0, "C5"), (2, "E5"), (3, "G5"), (6, "A5"), (8, "G5"), (10, "E5"), (11, "D5"), (14, "C5")],
-        [(0, "A4"), (2, "C5"), (3, "E5"), (6, "G5"), (8, "E5"), (10, "D5"), (12, "C5"), (14, "D5")],
-        [(0, "G4"), (2, "C5"), (3, "D5"), (6, "E5"), (8, "G5"), (10, "A5"), (11, "G5"), (14, "E5")],
-        [(0, "A4"), (2, "C5"), (4, "D5"), (6, "E5"), (8, "D5"), (10, "C5"), (12, "A4"), (14, "G4")]]
-DRUM = {0: "bass", 2: "tone", 3: "tone", 6: "slap", 8: "bass", 10: "tone", 11: "tone", 14: "slap", 15: "slap"}
-DUN = [0, 3, 6, 10]
+def daba(vel=1.0):
+    """The blade of a daba, the farmer's hoe of the North, struck like a bell."""
+    n = int(SR * .35); t = tt(n)
+    s = sum(a * np.sin(2 * np.pi * fr * t) * env(.0005, dc, n) for fr, a, dc in [(1460, 1, .09), (2390, .55, .05), (3870, .3, .03), (5210, .15, .02)])
+    return s * vel * .5
+
+# Percussion made from the mango's own sounds: fruit thump in a crate (kick), crate knock (snare),
+# dried mango seeds in a gourd (shaker), plus djembe tones and the daba bell.
+def mango_kick(vel=1.0):
+    n = int(SR * .4); t = tt(n)
+    f = 58 + 60 * np.exp(-t / .02)
+    s = np.sin(2 * np.pi * np.cumsum(f) / SR) * env(.0015, .16, n)
+    c = crate_drop(.8, 1); s[:len(c)] += .5 * c
+    return s * vel
+def crate_snare(vel=1.0):
+    s = crate_drop(1.25, 1.0)
+    n = len(s); s = s + flt(noise(n), "band", [1200, 6000]) * env(.001, .05, n) * .6
+    return s * vel * .8
+def seeds(vel=1.0):
+    n = int(SR * .12); t = tt(n); s = np.zeros(n)
+    for _ in range(14):                      # many small seeds hitting the gourd
+        i = int(rng.uniform(0, .05) * SR); m = int(SR * .006)
+        s[i:i + m] += flt(noise(m), "band", [3000, 9000]) * rng.uniform(.3, 1)
+    return s * env(.004, .04, n) * vel
+
+BELL = [0, 2, 4, 5, 7, 9, 11]               # the 12/8 standard bell pattern
+OSTI = [[(0, "C5"), (2, "E5"), (3, "G5"), (5, "A5"), (6, "G5"), (8, "E5"), (9, "D5"), (11, "C5")],
+        [(0, "A4"), (2, "C5"), (3, "E5"), (5, "G5"), (6, "E5"), (8, "D5"), (9, "C5"), (11, "D5")],
+        [(0, "G4"), (2, "C5"), (3, "D5"), (5, "E5"), (6, "G5"), (8, "A5"), (9, "G5"), (11, "E5")],
+        [(0, "A4"), (2, "C5"), (3, "D5"), (5, "E5"), (6, "D5"), (8, "C5"), (9, "A4"), (11, "G4")]]
+LOWBAL = [[(0, "C3"), (6, "G3")], [(0, "A2"), (6, "E3")], [(0, "G2"), (6, "D3")], [(0, "A2"), (9, "G2")]]
+DJ = {4: "tone", 5: "tone", 10: "tone", 11: "tone", 2: "slap", 8: "slap"}
 BASSLINE = ["C2", "A1", "G1", "A1"]
 
 def groove(t0, t1, intensity=1.0, bright=False):
     b = 0
     while t0 + b * BAR < t1:
         tb = t0 + b * BAR
+        def ok(st): return tb + st * E8 < t1
         for st, note in OSTI[b % 4]:
-            if tb + st * S16 < t1:
-                bal.put(tb + st * S16, balafon(nf(note) * (2 if bright and st % 4 == 2 else 1), .42 * intensity), 1, .35)
-        for st, kind in DRUM.items():
-            if tb + st * S16 < t1: perc.put(tb + st * S16, djembe(kind, (.9 if st in (0, 8) else .65) * intensity), 1, -.25 if kind != "bass" else 0)
-        for st in DUN:
-            if tb + st * S16 < t1: perc.put(tb + st * S16, dundun(.7 * intensity), 1, .1)
-        for st in range(16):
-            if tb + st * S16 < t1: perc.put(tb + st * S16, shaker((.8 if st % 4 == 0 else .45 if st % 2 == 0 else .28) * intensity), .5, .45)
+            if ok(st): bal.put(tb + st * E8, balafon(nf(note) * (2 if bright and st in (3, 9) else 1), .42 * intensity), 1, .35)
+        for st, note in LOWBAL[b % 4]:      # the big low bars of the balafon answer the melody
+            if ok(st): bal.put(tb + st * E8, balafon(nf(note), .5 * intensity, 1.4), 1, -.35)
+        for st in BELL:
+            if ok(st): perc.put(tb + st * E8, daba((.75 if st == 0 else .5) * intensity), 1, .55)
+        for st in (0, 6):
+            if ok(st): perc.put(tb + st * E8, mango_kick(.95 * intensity), 1, 0)
+        for st in (3, 9):
+            if ok(st): perc.put(tb + st * E8, crate_snare(.7 * intensity), 1, -.1)
+        for st, kind in DJ.items():
+            if ok(st): perc.put(tb + st * E8, djembe(kind, .6 * intensity), 1, -.4)
+        for st in range(12):
+            if ok(st): perc.put(tb + st * E8, seeds((.85 if st % 3 == 0 else .4) * intensity), .6, .45)
         if tb < t1:
-            low.put(tb, bassnote(nf(BASSLINE[b % 4]), min(BAR * .55, t1 - tb), .7 * intensity))
-            if tb + 10 * S16 < t1: low.put(tb + 10 * S16, bassnote(nf(BASSLINE[b % 4]) * 1.5, min(S16 * 5, t1 - tb - 10 * S16), .5 * intensity))
+            low.put(tb, bassnote(nf(BASSLINE[b % 4]), min(BAR * .45, t1 - tb), .7 * intensity))
+            if ok(7): low.put(tb + 7 * E8, bassnote(nf(BASSLINE[b % 4]) * 1.5, min(E8 * 4, t1 - tb - 7 * E8), .45 * intensity))
         b += 1
 
 # --- 0.0-3.9  dawn in the orchard, the theme solo, then the stamp ---
@@ -317,7 +352,7 @@ amb.put(0, birds(9.8, 1.2), .9)
 amb.put(0, cicadas(9.8), .5)
 amb.put(0, wind(9.8), .5)
 padb.put(0, pad([nf("C3"), nf("G3"), nf("E4")], STAMP + .25, .55, 1100))
-play_theme(theme, .25, THEME[:7], vel=.55)            # first half of the theme...
+play_theme(theme, .25, THEME[:7], vel=.55)            # the first phrase of the theme...
 fx.put(STAMP - .07, stamp(1.3), 1, 0)                   # ...cut off by the stamp
 fx.put(STAMP, container_slam(.45), 1, .2)
 padb.put(STAMP + .1, pad([nf("C3"), nf("F#3"), nf("C4")], 2.6, .35, 700))   # an uneasy chord under the question
@@ -331,7 +366,7 @@ low.put(LOGO0 + .35, bassnote(nf("C2"), 3.0, .55))
 groove(SECTOR0, CRISIS0 + .1)
 for i, ttk in enumerate(np.arange(B(.3), B(1.8), .085)):
     fx.put(ttk, crate_drop(rng.uniform(.9, 1.15), .35 + .25 * i / 18), 1, rng.uniform(-.5, .5))
-play_theme(theme, B(1.9), THEME[7:], vel=.45, octave=2.0, pan=.2)     # a bright answer on the "≈100 000 personnes" pill
+play_theme(theme, B(1.9), [(n, st - 12) for n, st in THEME[7:]], vel=.45, octave=2.0, pan=.2)     # a bright answer on the "≈100 000 personnes" pill
 # --- 14.0-21.2  the crisis at the port ---
 fx.put(CRISIS0 - .1, ship_horn(3.0, 1.0), 1, -.1)
 fx.put(B(3.9) + .1, container_slam(.9), 1, .25)                       # "Depuis le 1er août 2026"
@@ -341,7 +376,6 @@ hb = CRISIS0 + .9
 while hb < CRISIS1 - .4:
     perc.put(hb, heartbeat(1.0)); perc.put(hb + .28, heartbeat(.6)); hb += 1.2
 play_theme(theme, CRISIS0 + 1.2, THEME_MIN, vel=.5, octave=.5, pan=-.3)
-play_theme(theme, CRISIS0 + 4.0, THEME_MIN[:4], vel=.4, octave=.5, pan=-.3)
 fx.put(B(4.8), fly(B(7.5) - B(4.8), .3), 1)
 fx.put(B(5.2), fly(B(7.5) - B(5.2), .2, 247), 1)
 fx.put(B(5.6) - .05, stamp(.8), 1, .15)                                   # "27 lots interceptés"
@@ -356,11 +390,11 @@ for i, f in enumerate([knife, pour, blender, bubbles, ice, pestle]):
 # --- 27.2-31.9  end card: the theme in full, the orchard again ---
 amb.put(END0 - .3, birds(DUR - END0 + .3, .9), .7)
 amb.put(END0 - .3, wind(DUR - END0 + .3), .35)
-play_theme(theme, END0 + .1, THEME, vel=.6, swing=.12)
+play_theme(theme, END0 - .2, THEME, vel=.6)
 padb.put(END0, pad([nf("C3"), nf("G3"), nf("E4"), nf("A4")], DUR - END0, .7))
 low.put(END0 + .1, bassnote(nf("C2"), 3.5, .6))
 fx.put(B(12.75), bell(nf("C6"), .3, 2.0), 1, -.2); fx.put(B(12.8), bell(nf("G6"), .18, 2.0), 1, .2)
-theme.put(END0 + 2.4 * 1.0 + 1.2, balafon(nf("C5"), .5, 2.5), 1, 0)       # final note, left to ring
+theme.put(END0 - .2 + 23 * E8, balafon(nf("C5"), .45, 2.5), 1, 0)          # resolving note, left to ring
 
 # ---------- mix ----------
 def curve(points):
@@ -372,6 +406,22 @@ mix += perc.x * .7 + low.x * .55 + padb.x * .5
 mix += amb.x * amb_g * .55
 mix += fx.x * .85
 
+# voice-over (optional): voice.wav, already placed on the video timeline, ducks the music by about 9 dB
+import os
+voice = np.zeros((N, 2))
+if os.path.exists("voice.wav"):
+    vsr, v = wavfile.read("voice.wav"); v = v.astype(float) / 32767
+    if v.ndim == 1: v = np.stack([v, v], 1)
+    v = v[:N]; voice[:len(v)] = v
+    vlev = flt(np.abs(voice[:, 0]), "low", 6)
+    duck_v = 1 - .72 * np.clip(vlev / (vlev.max() * .15 + 1e-9), 0, 1)      # about -11 dB under the voice
+    on = vlev > vlev.max() * .1
+    music_on = mix * duck_v[:, None]
+    # set the voice about 10 dB above the ducked music while it speaks
+    vg = np.sqrt((music_on[on] ** 2).mean()) / np.sqrt((voice[on] ** 2).mean() + 1e-12) * 10 ** (10 / 20)
+    mix = music_on + voice * vg
+    print("voice gain", round(float(vg), 2))
+
 # reverb: more on the balafon theme and the pads, a little on the rest
 ir = reverb_ir()
 send = theme.x * music_cut * .5 + bal.x * music_cut * .2 + padb.x * .35 + fx.x * .18 + perc.x * .08
@@ -381,7 +431,7 @@ mix += apply_reverb(send, ir, .35)
 rms = np.sqrt(flt(np.mean(mix ** 2, 1), "low", 8) .clip(1e-12))
 thr = 10 ** (-18 / 20); gr = np.where(rms > thr, (thr * (rms / thr) ** (1 / 3)) / rms, 1.0)
 mix *= gr[:, None]
-mix = np.tanh(mix / np.max(np.abs(mix)) * 1.6) / np.tanh(1.6)
+mix = np.tanh(mix / np.max(np.abs(mix)) * 2.6) / np.tanh(2.6)
 mix *= .89 * GAIN
 fade = np.minimum(1, tt(N) / .03) * np.clip((DUR - tt(N)) / .9, 0, 1)
 mix *= fade[:, None]
