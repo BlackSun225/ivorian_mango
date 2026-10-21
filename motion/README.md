@@ -12,7 +12,7 @@ Structure: product image with a hook question and a stamp, the Maison DOUDJO Cab
 - Dawn in the orchard: savanna birds, cicadas and wind; the balafon theme plays solo.
 - "IMPORT UE SUSPENDU": the theme is cut off by a rubber-stamp hit and a metal slam.
 - Logo: the full theme as a short sting, with a warm chord and a bell.
-- The sector: djembe, dundun, shaker and bass groove; mangoes drop into a wooden crate as the counter climbs.
+- The sector: the 12/8 groove (balafon, mango-made percussion, daba bell, djembe, bass); mangoes drop into a wooden crate as the counter climbs.
 - The crisis: a ship's horn in the port, a container door slams, the theme in minor over a heartbeat, flies circling from left to right, a second stamp for the intercepted lots.
 - Processing: the groove returns; each product has its sound (knife, pouring juice, blender, bubbling jam, ice, mortar and pestle).
 - End card: the full theme, the orchard again, a chime on "Le site arrive bientôt", fade-out.
