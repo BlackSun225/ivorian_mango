@@ -7,14 +7,15 @@ Structure: product image with a hook question and a stamp, the Maison DOUDJO Cab
 
 ## Soundtrack
 
-An original piece synthesised in code (`source/sound.py`), with no samples and no copyrighted music. It is a West African-inspired groove at 100 BPM: balafon (the wooden xylophone of the Senufo in the North, where the mangoes grow), djembe, shaker and a soft bass, in C major pentatonic.
+"Du verger au port": original sound design and music synthesised in code (`source/sound.py`), with no samples and no copyrighted music. An original balafon theme (the wooden xylophone of the Senufo in the North, where the mangoes grow) follows the mango's journey.
 
-- Product and hook: light groove; a stamp impact when "IMPORT UE SUSPENDU" hits.
-- Logo: the drums drop out, a warm pad and a bell chime.
-- The sector: full groove; soft ticks while the counter climbs.
-- The crisis: the background turns dark, the music moves to A minor with a heartbeat drum, and flies buzz around the mango.
-- Processing: the groove comes back; each product pops with a balafon note.
-- End card: a chime on "Le site arrive bientôt", then a fade-out.
+- Dawn in the orchard: savanna birds, cicadas and wind; the balafon theme plays solo.
+- "IMPORT UE SUSPENDU": the theme is cut off by a rubber-stamp hit and a metal slam.
+- Logo: the full theme as a short sting, with a warm chord and a bell.
+- The sector: djembe, dundun, shaker and bass groove; mangoes drop into a wooden crate as the counter climbs.
+- The crisis: a ship's horn in the port, a container door slams, the theme in minor over a heartbeat, flies circling from left to right, a second stamp for the intercepted lots.
+- Processing: the groove returns; each product has its sound (knife, pouring juice, blender, bubbling jam, ice, mortar and pestle).
+- End card: the full theme, the orchard again, a chime on "Le site arrive bientôt", fade-out.
 
 ## Rebuild
 
@@ -26,7 +27,7 @@ python3 source/render.py source/stage.html B BR 0 22.9 30   # story + end card
 ffmpeg -framerate 30 -i A/%04d.png -framerate 30 -i B/%04d.png -i cabosse-motion-1080x1080.mp4 -filter_complex \
  "[0:v]format=yuv420p,settb=AVTB,setpts=PTS-STARTPTS[a];[2:v]fps=30,format=yuv420p,settb=AVTB,setpts=PTS-STARTPTS[l];[1:v]format=yuv420p,settb=AVTB,setpts=PTS-STARTPTS[b];[a][l]xfade=transition=fade:duration=0.3:offset=3.9[al];[al][b]xfade=transition=fade:duration=0.4:offset=9.0,format=yuv420p[v]" \
  -map "[v]" -c:v libx264 -crf 17 -r 30 -movflags +faststart silent.mp4
-python3 source/sound.py 0.87    # writes mango_sound.wav (0.87 sets the loudness to about −14 LUFS)
+python3 source/sound.py 0.98    # writes mango_sound.wav (0.98 sets the loudness to about −14 LUFS)
 ffmpeg -i silent.mp4 -i mango_sound.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart mangue-motion-1080x1080.mp4
 ```
 
