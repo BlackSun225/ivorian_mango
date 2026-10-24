@@ -355,6 +355,13 @@ p{margin:0}
 .agir .finale{margin-inline:auto;text-align:center}
 .agir-ctas{justify-content:center}
 
+/* One rhythm between chapters: each chapter only has bottom padding, so the space
+   from the end of one chapter's content to the start of the next is always the same */
+:root{--sec-gap:clamp(96px,14vw,184px)}
+.chapter{padding-top:0!important;padding-bottom:var(--sec-gap)}
+#histoire{padding-top:var(--sec-gap)!important}
+.agir{margin-top:0;padding-top:var(--sec-gap)!important}
+
 /* Compact call-to-action in the nav pill and the mobile menu */
 .nav-cta{padding:.55em 1em!important;font-size:.84rem!important;white-space:nowrap}
 .menu .btn{align-self:stretch!important;width:100%;justify-content:center;text-align:center;padding:1.05em 1.5em;font-size:1.02rem}
