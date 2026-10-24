@@ -160,9 +160,18 @@ p{margin:0}
 .b-big{background:linear-gradient(160deg,#FFF4DC 0%,#FBE3B4 100%);display:flex;flex-direction:column;gap:18px}
 .b-big svg{width:100%;max-width:440px;margin-inline:auto;height:auto}
 .b-big .trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;border-top:1px solid var(--line);padding-top:18px}
-.trio div{display:grid;gap:2px}
-.trio b{font-family:var(--display);font-size:clamp(1.5rem,1.2rem + 1vw,2.1rem);font-weight:700;font-variant-numeric:tabular-nums}
-.trio span{font-size:.82rem;color:var(--earth-soft)}
+.trio div{display:grid;gap:6px;align-content:start}
+/* the number leads; the unit and the label stay small */
+.trio b{font-family:var(--display);font-size:clamp(2rem,1.4rem + 1.8vw,3rem);font-weight:800;line-height:1;letter-spacing:-.035em;color:var(--earth);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trio b small{font-family:var(--body);font-size:.36em;font-weight:600;letter-spacing:0;margin-left:.18em;color:var(--mango-ink)}
+.trio-l{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--earth-soft)}
+/* bêta-carotène */
+.beta{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start;padding:16px 18px;border-radius:20px;background:rgba(255,251,243,.72);border:1px solid var(--line)}
+.beta-dot{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFD067,#F07A12 60%,#C9520A);box-shadow:inset 0 0 0 3px rgba(255,251,243,.55);margin-top:4px}
+.cell .beta-v{font-family:var(--display);font-size:clamp(1.8rem,1.3rem + 1.4vw,2.6rem);font-weight:800;line-height:1;letter-spacing:-.035em;color:var(--mango-ink);font-variant-numeric:tabular-nums}
+.cell .beta-v small{font-family:var(--body);font-size:.4em;font-weight:600;letter-spacing:0;margin-left:.18em}
+.beta h4{margin:6px 0 4px;font-family:var(--body);font-size:1rem;font-weight:600}
+.beta p:not(.beta-v){font-size:.92rem;color:var(--earth-soft)}
 .b-c{background:var(--mango);border-color:transparent;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
 .b-c p{color:var(--earth)}
 .gauge{height:12px;border-radius:99px;background:rgba(59,42,30,.15);overflow:hidden}
@@ -530,7 +539,7 @@ p{margin:0}
     <div class="bento">
       <article class="cell b-big">
         <h3>Une mangue mûre, coupée en deux</h3>
-        <svg id="splitMango" viewBox="0 0 360 270" role="img" aria-label="Une mangue mûre coupée en deux : sous la peau, la chair jaune entoure le noyau ; elle apporte vitamine C, bêta-carotène, fibres et potassium">
+        <svg id="splitMango" viewBox="44 20 272 200" role="img" aria-label="Une mangue mûre coupée en deux : sous la peau, la chair orangée entoure le noyau">
           <g transform="translate(100 34) scale(.8)">
             <g id="mgCore">
               <use href="#mangoShape" transform="translate(22 25) scale(.78)" fill="url(#gFlesh)"/>
@@ -541,17 +550,19 @@ p{margin:0}
             <g id="halfR"><use href="#mangoShape" clip-path="url(#clipR)" fill="url(#gRipe)"/><path d="M100 18C102 8 108 2 116 0" stroke="#3B2A1E" stroke-width="5" fill="none" stroke-linecap="round"/></g>
             <path id="mgCut" d="M100 16V208" stroke="#FFFFFF" stroke-width="2.5" stroke-dasharray="6 5" fill="none" opacity="0"/>
           </g>
-          <g id="mgLabels">
-            <path class="callout" d="M150 92 L92 30 H14"/><text class="lbl" x="14" y="22">Vitamine C</text>
-            <path class="callout" d="M214 92 L268 30 H346"/><text class="lbl" x="346" y="22" text-anchor="end">Fibres</text>
-            <path class="callout" d="M152 160 L92 238 H14"/><text class="lbl" x="14" y="258">Bêta-carotène</text>
-            <path class="callout" d="M210 160 L268 238 H346"/><text class="lbl" x="346" y="258" text-anchor="end">Potassium</text>
-          </g>
         </svg>
+        <div class="beta">
+          <span class="beta-dot" aria-hidden="true"></span>
+          <div>
+            <p class="beta-v"><span data-count="640">640</span><small>µg</small></p>
+            <h4>Bêta-carotène</h4>
+            <p>Le pigment orange de la chair. Le corps le transforme en vitamine A, utile à la vue et aux défenses de l'organisme.<a class="src" href="#sources">[9]</a></p>
+          </div>
+        </div>
         <div class="trio">
-          <div><b><span data-count="60">60</span></b><span>kilocalories</span></div>
-          <div><b><span data-count="13.7" data-dec="1">13,7</span>&nbsp;g</b><span>de sucres naturels</span></div>
-          <div><b><span data-count="1.6" data-dec="1">1,6</span>&nbsp;g</b><span>de fibres</span></div>
+          <div><b><span data-count="60">60</span><small>kcal</small></b><span class="trio-l">Énergie</span></div>
+          <div><b><span data-count="13.7" data-dec="1">13,7</span><small>g</small></b><span class="trio-l">Sucres naturels</span></div>
+          <div><b><span data-count="1.6" data-dec="1">1,6</span><small>g</small></b><span class="trio-l">Fibres</span></div>
         </div>
       </article>
       <article class="cell b-c">
@@ -1184,14 +1195,13 @@ p{margin:0}
 
   gsap.from('#cmp .cmp-track i', { scaleX: 0, duration: 1.6, stagger: .25, ease: 'expo.out', scrollTrigger: { trigger: '#cmp', start: 'top 78%' } });
 
-  /* Nutrition: the mango is cut, its two halves open to show the flesh and the stone, then the nutrients are labelled */
+  /* Nutrition: the mango is cut, its two halves open to show the flesh and the stone */
   var sp = gsap.timeline({ scrollTrigger: { trigger: '#splitMango', start: 'top 80%', end: 'center 40%', scrub: .6 } });
   sp.fromTo('#mgCut', { opacity: 1, scaleY: 0 }, { opacity: 1, scaleY: 1, svgOrigin: '100 16', duration: .18, ease: 'none' }, .02)
     .to('#mgCut', { opacity: 0, duration: .1, ease: 'none' }, .24)
     .to('#halfL', { x: -70, rotation: -8, svgOrigin: '100 120', duration: .6 }, .24)
     .to('#halfR', { x: 70, rotation: 8, svgOrigin: '100 120', duration: .6 }, .24)
-    .from('#mgCore', { scale: .85, svgOrigin: '100 118', duration: .6 }, .24)
-    .from('#mgLabels', { opacity: 0, duration: .16 }, .84);
+    .from('#mgCore', { scale: .85, svgOrigin: '100 118', duration: .6 }, .24);
 
   gsap.from('.slice', { y: 60, opacity: 0, duration: 1.1, stagger: .05, ease: 'expo.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: '.slices', start: 'top 85%' } });   /* clearProps hands the cards back to the CSS hover effect */
   gsap.from('.div-list li', { y: 30, opacity: 0, duration: 1, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.div-list', start: 'top 85%' } });
