@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mangue de Côte d'Ivoire</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="La filière mangue ivoirienne face à la suspension européenne : histoire, nutrition, origines, crise de la mouche des fruits, transformation locale et moyens d'agir.">
@@ -399,6 +403,33 @@ p{margin:0}
     .acts{row-gap:14px}
     .act{grid-row:span 5;grid-template-rows:subgrid;row-gap:14px}
   }
+}
+
+/* ---------- Phones and tablets ---------- */
+/* Histoire: compact timeline on phones (picture beside the text), smaller pictures on small laptops/tablets */
+@media (max-width:599px){
+  .step{grid-template-columns:84px minmax(0,1fr);gap:16px;align-items:start}
+  .step-art{max-width:84px;border-radius:20px}
+  .step h3{font-size:1.35rem;margin:6px 0 8px}
+}
+@media (min-width:900px) and (max-width:1079px){
+  .split{gap:48px}
+  .step{grid-template-columns:120px minmax(0,1fr);gap:22px}
+  .step-art{max-width:120px}
+  .split-title .h2{font-size:clamp(2.2rem,1rem + 3vw,3.2rem)}
+}
+/* Nutrition: on phones and tablets the minerals list goes under the potassium figure */
+@media (max-width:1079px){ .b-min{grid-template-columns:minmax(0,1fr)!important;gap:18px} }
+.trio-l{font-size:.75rem}
+/* La crise: big figures never break, and the stacked cards use one column until laptop size */
+.stack-card .big-num{white-space:nowrap}
+@media (min-width:860px) and (max-width:1079px){ .stack-card{grid-template-columns:minmax(0,1fr)!important;align-items:start;gap:18px} }
+@media (max-width:599px){ .stack-card{min-height:0;padding:24px} .stack-card .big-num{font-size:clamp(2.6rem,1.6rem + 6vw,3.6rem)} }
+/* Touch screens: bigger tap areas for small links */
+@media (pointer:coarse){
+  .nav-links a{padding:.75em 1em}
+  .foot-nav a{display:inline-block;padding:8px 0}
+  .footer ol a{display:inline-block;padding:3px 0}
 }
 
 /* Compact call-to-action in the nav pill and the mobile menu */
