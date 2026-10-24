@@ -149,8 +149,8 @@ p{margin:0}
 /* Bento */
 .bento-head{display:grid;gap:22px;margin-bottom:clamp(40px,6vw,72px)}
 .bento{display:grid;grid-template-columns:minmax(0,1fr);grid-auto-flow:dense;gap:14px}
-@media (min-width:700px){ .bento{grid-template-columns:repeat(2,minmax(0,1fr))} .b-big{grid-column:span 2;grid-row:span 2} .b-c{grid-column:span 2} .b-min{grid-column:span 2} }
-@media (min-width:1080px){ .bento{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px} .b-big{grid-column:span 2;grid-row:span 2} .b-c{grid-column:span 2} .b-min{grid-column:span 4} }
+@media (min-width:700px){ .bento{grid-template-columns:repeat(2,minmax(0,1fr))} .b-big{grid-column:span 2;grid-row:span 2} .b-min{grid-column:span 2} }
+@media (min-width:1080px){ .bento{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px} .b-big{grid-column:span 2;grid-row:span 2} .b-min{grid-column:span 4} }
 .cell{border-radius:28px;padding:clamp(22px,2.4vw,32px);background:var(--paper);border:1px solid var(--line);position:relative;overflow:hidden;min-width:0;transition:box-shadow .5s var(--ease)}
 .cell:hover{box-shadow:0 18px 40px -28px rgba(0,0,0,.35)}
 .cell h3{font-size:1.1rem;font-family:var(--body);font-weight:600;letter-spacing:0;line-height:1.3}
@@ -165,13 +165,15 @@ p{margin:0}
 .trio b{font-family:var(--display);font-size:clamp(2rem,1.4rem + 1.8vw,3rem);font-weight:800;line-height:1;letter-spacing:-.035em;color:var(--earth);font-variant-numeric:tabular-nums;white-space:nowrap}
 .trio b small{font-family:var(--body);font-size:.36em;font-weight:600;letter-spacing:0;margin-left:.18em;color:var(--mango-ink)}
 .trio-l{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--earth-soft)}
-/* bêta-carotène */
-.beta{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start;padding:16px 18px;border-radius:20px;background:rgba(255,251,243,.72);border:1px solid var(--line)}
-.beta-dot{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFD067,#F07A12 60%,#C9520A);box-shadow:inset 0 0 0 3px rgba(255,251,243,.55);margin-top:4px}
-.cell .beta-v{font-family:var(--display);font-size:clamp(1.8rem,1.3rem + 1.4vw,2.6rem);font-weight:800;line-height:1;letter-spacing:-.035em;color:var(--mango-ink);font-variant-numeric:tabular-nums}
-.cell .beta-v small{font-family:var(--body);font-size:.4em;font-weight:600;letter-spacing:0;margin-left:.18em}
-.beta h4{margin:6px 0 4px;font-family:var(--body);font-size:1rem;font-weight:600}
-.beta p:not(.beta-v){font-size:.92rem;color:var(--earth-soft)}
+/* the mango card: the mango takes the free space, the figures sit at the bottom */
+.b-big #splitMango{flex:none;margin-block:auto;max-width:480px}
+
+/* Bêta-carotène card */
+.b-beta{background:#FFF7E8}
+.beta-top{display:flex;align-items:center;gap:12px}
+.beta-dot{width:34px;height:34px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFD067,#F07A12 60%,#C9520A);box-shadow:inset 0 0 0 3px rgba(255,251,243,.55)}
+.cell .beta-v{margin-top:14px;color:var(--mango-ink)}
+.b-beta p{margin-top:10px}
 .b-c{background:var(--mango);border-color:transparent;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
 .b-c p{color:var(--earth)}
 .gauge{height:12px;border-radius:99px;background:rgba(59,42,30,.15);overflow:hidden}
@@ -551,45 +553,43 @@ p{margin:0}
             <path id="mgCut" d="M100 16V208" stroke="#FFFFFF" stroke-width="2.5" stroke-dasharray="6 5" fill="none" opacity="0"/>
           </g>
         </svg>
-        <div class="beta">
-          <span class="beta-dot" aria-hidden="true"></span>
-          <div>
-            <p class="beta-v"><span data-count="640">640</span><small>µg</small></p>
-            <h4>Bêta-carotène</h4>
-            <p>Le pigment orange de la chair. Le corps le transforme en vitamine A, utile à la vue et aux défenses de l'organisme.<a class="src" href="#sources">[9]</a></p>
-          </div>
-        </div>
         <div class="trio">
           <div><b><span data-count="60">60</span><small>kcal</small></b><span class="trio-l">Énergie</span></div>
           <div><b><span data-count="13.7" data-dec="1">13,7</span><small>g</small></b><span class="trio-l">Sucres naturels</span></div>
           <div><b><span data-count="1.6" data-dec="1">1,6</span><small>g</small></b><span class="trio-l">Fibres</span></div>
         </div>
       </article>
+      <article class="cell b-beta">
+        <div class="beta-top"><span class="beta-dot" aria-hidden="true"></span><h3>Bêta-carotène</h3></div>
+        <div class="big-num beta-v"><span data-count="640">640</span><small>µg</small></div>
+        <p>Le pigment orange de la chair. Le corps le transforme en vitamine A.<a class="src" href="#sources">[9]</a><a class="src" href="#sources">[16]</a></p>
+      </article>
       <article class="cell b-c">
         <h3>Vitamine C</h3>
         <div>
           <div class="big-num"><span data-count="36.4" data-dec="1">36,4</span><small>mg</small></div>
-          <p style="margin-top:10px">Soit environ 40&nbsp;% de la valeur quotidienne de référence américaine (90&nbsp;mg).</p>
+          <p style="margin-top:10px">Environ 40&nbsp;% de la valeur quotidienne de référence (90&nbsp;mg). Antioxydante, elle aide à fabriquer le collagène qui cicatrise la peau, à absorber le fer des végétaux et à défendre l'organisme.<a class="src" href="#sources">[16]</a></p>
         </div>
         <div class="gauge" role="img" aria-label="Environ 40 pour cent des besoins quotidiens"><i></i></div>
       </article>
       <article class="cell b-a">
         <h3>Vitamine A</h3>
         <div class="big-num" style="margin-top:14px"><span data-count="54">54</span><small>µg</small></div>
-        <p style="margin-top:10px">En équivalent rétinol, issue surtout des 640&nbsp;µg de bêta-carotène qui colorent la chair.</p>
+        <p style="margin-top:10px">Issue surtout du bêta-carotène. Elle soutient la vue, l'immunité et la croissance.<a class="src" href="#sources">[16]</a></p>
       </article>
       <article class="cell b-f">
         <h3>Folates (B9)</h3>
         <div class="big-num" style="margin-top:14px"><span data-count="43">43</span><small>µg</small></div>
-        <p style="margin-top:10px">Plus 0,9&nbsp;mg de vitamine E, 4,2&nbsp;µg de vitamine K et 0,12&nbsp;mg de vitamine B6.</p>
+        <p style="margin-top:10px">Ils aident le corps à fabriquer l'ADN et à renouveler les cellules, un besoin qui compte surtout avant et en début de grossesse.<a class="src" href="#sources">[16]</a></p>
       </article>
       <article class="cell b-min">
         <div>
           <h3>Minéraux</h3>
           <div class="big-num" style="margin-top:10px"><span data-count="168">168</span><small>mg de potassium</small></div>
+          <p style="margin-top:8px">Le potassium aide le cœur, les reins, les muscles et les nerfs à fonctionner.<a class="src" href="#sources">[16]</a></p>
         </div>
-        <ul class="chips" aria-label="Autres minéraux présents">
-          <li>Potassium 168&nbsp;mg</li><li>Magnésium 10&nbsp;mg</li><li>Cuivre 0,11&nbsp;mg</li>
+        <ul class="chips" aria-label="Autres minéraux et vitamines présents">
+          <li>Magnésium 10&nbsp;mg</li><li>Cuivre 0,11&nbsp;mg</li><li>Vitamine E 0,9&nbsp;mg</li><li>Vitamine K 4,2&nbsp;µg</li><li>Vitamine B6 0,12&nbsp;mg</li>
         </ul>
       </article>
     </div>
@@ -933,6 +933,7 @@ p{margin:0}
           <li><a href="https://agroforesterie.org/mangue.php" target="_blank" rel="noopener">Agroforesterie Côte d'Ivoire, la mangue</a></li>
           <li><a href="https://lacotedivoireagricole.ci/cote-divoire-situation-de-la-filiere-mangue-en-2022/" target="_blank" rel="noopener">La Côte d'Ivoire agricole, situation de la filière mangue en 2022</a></li>
           <li><a href="https://www.cbi.eu/market-information/fresh-fruit-vegetables/mangoes/market-entry" target="_blank" rel="noopener">CBI, Entering the European market for mangoes</a></li>
+          <li><a href="https://ods.od.nih.gov/factsheets/list-VitaminsMinerals/" target="_blank" rel="noopener">NIH Office of Dietary Supplements, fiches vitamines et minéraux (vitamines A et C, folates, potassium)</a></li>
         </ol>
       </div>
     </div>
