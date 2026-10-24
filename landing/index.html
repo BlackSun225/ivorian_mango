@@ -50,6 +50,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:70;opacity:.07;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 main{overflow-x:hidden;width:100%;max-width:100%}
+@supports (overflow:clip){ main{overflow-x:clip} }
 a{color:inherit}
 :focus-visible{outline:2.5px solid var(--leaf);outline-offset:3px;border-radius:6px}
 h1,h2,h3{font-family:var(--display);line-height:1.02;letter-spacing:-.025em;margin:0;text-wrap:balance;font-weight:700}
@@ -340,6 +341,18 @@ p{margin:0}
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
 }
 
+/* Centred section heads (every chapter except Histoire, whose title stays pinned on the left) */
+.sec-head{display:grid;justify-items:center;text-align:center}
+.sec-head .kicker{justify-content:center}
+.sec-head .h2{max-width:none;margin-inline:auto}
+.sec-head .lede,.sec-head .note{margin-inline:auto}
+.sec-head .scrub{margin-inline:auto;text-align:center}
+.sub-head{text-align:center}
+.sub-head .h2,.diversify > .h2{max-width:none;margin-inline:auto;text-align:center}
+.origin-head{margin-bottom:clamp(40px,6vw,72px)}
+.agir .finale{margin-inline:auto;text-align:center}
+.agir-ctas{justify-content:center}
+
 /* Compact call-to-action in the nav pill and the mobile menu */
 .nav-cta{padding:.55em 1em!important;font-size:.84rem!important;white-space:nowrap}
 .menu .btn{align-self:stretch!important;width:100%;justify-content:center;text-align:center;padding:1.05em 1.5em;font-size:1.02rem}
@@ -472,7 +485,7 @@ p{margin:0}
 <!-- NUTRITION -->
 <section class="chapter" id="nutrition" aria-labelledby="h-nut" style="padding-top:0">
   <div class="wrap">
-    <div class="bento-head">
+    <div class="bento-head sec-head">
       <span class="kicker">Nutrition</span>
       <h2 class="h2" id="h-nut">Ce qu'il y a dans une mangue.</h2>
       <p class="lede">Valeurs indicatives pour 100&nbsp;g de mangue crue, d'après la base USDA FoodData Central.<a class="src" href="#sources">[9]</a></p>
@@ -538,7 +551,13 @@ p{margin:0}
 
 <!-- ORIGINES -->
 <section class="chapter" id="origines" aria-labelledby="h-ori" style="padding-top:0">
-  <div class="wrap origin-grid">
+  <div class="wrap">
+    <div class="sec-head origin-head">
+      <span class="kicker">Origines</span>
+      <h2 class="h2" id="h-ori" style="margin-top:18px">Où pousse la mangue ivoirienne.</h2>
+      <p class="lede" style="margin-top:22px">Le verger national couvre neuf régions, surtout dans le Nord. La campagne de commercialisation commence en général en mars.<a class="src" href="#sources">[3]</a></p>
+    </div>
+    <div class="origin-grid">
     <div class="map-card" id="map">
       <svg viewBox="0 0 380 410" role="img" aria-label="Carte stylisée de la Côte d'Ivoire : les régions du Poro, du Tchologo, de la Bagoué et du Hambol au nord, le port d'Abidjan au sud">
         <path d="M45 33L72 21L108 27L150 18L192 24L222 36L246 63L282 57L324 54L357 84L366 132L348 180L342 240L330 288L348 336L318 339L282 333L222 342L162 363L102 381L69 386L75 336L45 294L24 258L15 210L36 183L30 144L45 120L36 84L48 57Z" fill="#F2E6D0" stroke="#3B2A1E" stroke-width="1.5" stroke-linejoin="round"/>
@@ -560,10 +579,7 @@ p{margin:0}
       <p class="note" style="margin-top:8px">Carte stylisée, non à l'échelle. Quatre des neuf régions productrices sont représentées.</p>
     </div>
     <div>
-      <span class="kicker">Origines</span>
-      <h2 class="h2" id="h-ori" style="margin-top:18px">Où pousse la mangue ivoirienne.</h2>
-      <p class="lede" style="margin-top:22px">Le verger national couvre neuf régions, surtout dans le Nord. La campagne de commercialisation commence en général en mars.<a class="src" href="#sources">[3]</a></p>
-      <dl class="facts">
+      <dl class="facts" style="margin-top:0">
         <div><dt>Surface de vergers</dt><dd><span data-count="20000">20&nbsp;000</span>&nbsp;ha<a class="src" href="#sources">[1]</a></dd></div>
         <div><dt>Production annuelle</dt><dd>~<span data-count="180000">180&nbsp;000</span>&nbsp;t<a class="src" href="#sources">[1]</a></dd></div>
         <div><dt>Producteurs villageois</dt><dd>~<span data-count="5000">5&nbsp;000</span><a class="src" href="#sources">[1]</a></dd></div>
@@ -579,6 +595,7 @@ p{margin:0}
         </ul>
       </div>
     </div>
+    </div>
   </div>
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
@@ -591,10 +608,12 @@ p{margin:0}
 <!-- CRISE -->
 <section class="chapter crise" id="crise" aria-labelledby="h-crise">
   <div class="wrap">
+    <div class="sec-head">
     <span class="kicker">La crise</span>
-    <h2 class="h2" id="h-crise" style="margin-top:18px;max-width:20ch">Une mouche, et l'Europe ferme sa porte.</h2>
+    <h2 class="h2" id="h-crise" style="margin-top:18px">Une mouche, et l'Europe ferme sa porte.</h2>
     <p class="scrub" id="scrub">Depuis le 1er août 2026, les mangues fraîches de Côte d'Ivoire ne peuvent plus entrer dans l'Union européenne. Les inspecteurs européens ont intercepté des lots infestés par la <mark>mouche des fruits</mark>, année après année, alors que les règles avaient été durcies dès 2019.</p>
     <p class="note" style="margin-top:18px">Annonce du ministre de l'Agriculture, Bruno Nabagné Koné, le 15 octobre 2026.<a class="src" href="#sources">[1]</a><a class="src" href="#sources">[4]</a></p>
+    </div>
 
     <div class="crise-row">
       <div class="panel" id="chart">
@@ -637,7 +656,7 @@ p{margin:0}
     </div>
 
     <div class="stack" id="stack">
-      <div class="stack-head">
+      <div class="stack-head sub-head">
         <h2 class="h2" style="font-size:clamp(2rem,1.2rem + 3vw,3.6rem)">Ce que vivent les producteurs.</h2>
       </div>
       <article class="stack-card" style="--i:0">
@@ -680,7 +699,7 @@ p{margin:0}
 <section class="chapter" id="transformer" aria-labelledby="h-tf">
   <div class="wrap">
     <div class="tf-head">
-      <div>
+      <div class="sec-head" style="margin-inline:auto">
         <span class="kicker">Transformer</span>
         <h2 class="h2" id="h-tf" style="margin-top:18px">Chaque mangue transformée ici <span class="pill-img" role="img" aria-label="Mangue séchée"></span> garde sa valeur en Côte d'Ivoire.</h2>
         <p class="lede" style="margin-top:24px">Un fruit trop petit pour l'export, une récolte bloquée au port : transformés sur place, ils deviennent des produits vendus toute l'année, ici et dans la région CEDEAO.</p>
@@ -800,9 +819,11 @@ p{margin:0}
 <!-- AGIR -->
 <section class="chapter agir" id="agir" aria-labelledby="h-agir">
   <div class="wrap" style="position:relative">
+    <div class="sec-head">
     <span class="kicker">Agir</span>
     <h2 class="h2" id="h-agir" style="margin-top:18px">Ce que vous pouvez faire dès cette saison.</h2>
     <p class="lede">La filière ne se sauvera pas seulement à Bruxelles. Elle se renforce aussi à chaque achat fait ici.</p>
+    </div>
     <div class="acts">
       <article class="act">
         <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 14h24l-2 18H10z"/><path d="M14 14a6 6 0 0 1 12 0"/></svg>
