@@ -425,6 +425,11 @@ p{margin:0}
 .stack-card .big-num{white-space:nowrap}
 @media (min-width:860px) and (max-width:1079px){ .stack-card{grid-template-columns:minmax(0,1fr)!important;align-items:start;gap:18px} }
 @media (max-width:599px){ .stack-card{min-height:0;padding:24px} .stack-card .big-num{font-size:clamp(2.6rem,1.6rem + 6vw,3.6rem)} }
+/* La crise, laptops and up: shorter stacked cards, figure and text centred vertically */
+@media (min-width:1080px){
+  .stack-card{min-height:240px;padding:40px 52px;align-items:center;align-content:center}
+  .stack-card h3{margin-bottom:10px}
+}
 /* Touch screens: bigger tap areas for small links */
 @media (pointer:coarse){
   .nav-links a{padding:.75em 1em}
