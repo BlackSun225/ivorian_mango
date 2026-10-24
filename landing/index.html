@@ -264,19 +264,33 @@ p{margin:0}
 .slice .jobs{font-size:.88rem;color:var(--earth)}
 .slice .jobs b{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mango-ink);display:block;margin-bottom:2px}
 .swipe-hint{margin-top:10px}
+/* Product cards: text always wraps inside the card */
+.slice h3,.slice p{overflow-wrap:break-word;hyphens:auto;min-width:0}
+.slice-body > *{min-width:0}
 @media (min-width:1100px){
-  .slices{overflow:visible;height:560px;gap:10px;padding-bottom:0;scroll-snap-type:none}
-  .slice{flex:0 0 64px;transition:flex-grow .9s var(--ease),flex-basis .9s var(--ease);cursor:pointer}
-  .slice.is-open{flex:1 1 auto;cursor:default}
-  .slice-tab{display:flex;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 0;transition:opacity .4s}
-  .slice-tab span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:-.01em;white-space:nowrap}
-  .slice-tab i{width:12px;height:12px;border-radius:99px;background:var(--mango)}
+  .slices{--tab:64px;--gap:10px;overflow:visible;height:560px;gap:var(--gap);padding-bottom:0;scroll-snap-type:none}
+  .slice{flex:0 0 var(--tab);transition:flex-grow .75s cubic-bezier(.22,1,.36,1),background-color .35s,box-shadow .35s,transform .35s cubic-bezier(.22,1,.36,1);cursor:pointer}
+  .slice.is-open{flex:1 1 auto;cursor:default;box-shadow:0 22px 50px -34px rgba(59,42,30,.45)}
+  .slice:not(.is-open):hover{transform:translateY(-6px);box-shadow:0 16px 30px -22px rgba(59,42,30,.4)}
+  .slice-tab{display:flex;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 0;transition:opacity .3s}
+  .slice-tab span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:-.01em;white-space:nowrap;transition:color .3s}
+  .slice-tab i{width:12px;height:12px;border-radius:99px;background:var(--mango);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  .slice:not(.is-open):hover .slice-tab i{transform:scale(1.5)}
+  .slice:not(.is-open):hover .slice-tab span{color:var(--mango-ink)}
   .slice.is-open .slice-tab{opacity:0;pointer-events:none}
-  .slice-body{position:absolute;inset:0;width:560px;padding:32px;align-content:start;opacity:0;transform:translateY(16px);transition:opacity .5s .15s,transform .8s .15s var(--ease);pointer-events:none}
-  .slice.is-open .slice-body{opacity:1;transform:none;pointer-events:auto}
-  .slice-art{aspect-ratio:auto;height:280px}
-  .slice-art svg{height:100%;width:auto}
-  .slice h3{font-size:2rem}
+  /* the open card's content is laid out at the card's final width, so it never reflows or overflows while the card grows */
+  .slice-body{position:absolute;inset:0 auto 0 0;width:var(--open-w,100%);padding:30px;display:flex;flex-direction:column;gap:12px;pointer-events:none}
+  .slice-body > *{opacity:0;transform:translateY(14px);transition:opacity .2s,transform .2s}
+  .slice.is-open .slice-body{pointer-events:auto}
+  .slice.is-open .slice-body > *{opacity:1;transform:none;transition:opacity .55s,transform .7s cubic-bezier(.22,1,.36,1)}
+  .slice.is-open .slice-body > :nth-child(1){transition-delay:.12s}
+  .slice.is-open .slice-body > :nth-child(2){transition-delay:.2s}
+  .slice.is-open .slice-body > :nth-child(3){transition-delay:.26s}
+  .slice.is-open .slice-body > :nth-child(4){transition-delay:.32s}
+  .slice-art{aspect-ratio:auto;flex:1 1 auto;min-height:120px;max-height:280px}
+  .slice-art svg{height:100%;width:auto;max-width:90%}
+  .slice h3{font-size:clamp(1.5rem,1rem + 1vw,2rem);flex:none}
+  .slice p{flex:none}
   .swipe-hint{display:none}
 }
 .diversify{margin-top:clamp(72px,10vw,120px);display:grid;gap:28px}
@@ -992,8 +1006,19 @@ p{margin:0}
   var slices = Array.prototype.slice.call(document.querySelectorAll('.slice'));
   var wide = window.matchMedia('(min-width:1100px)');
   function openSlice(s){ slices.forEach(function(x){ x.classList.toggle('is-open', x === s); }); }
+  /* width of the open card = row width minus the closed tabs, so its text is laid out once */
+  var row = document.getElementById('slices');
+  function sizeOpen(){
+    var cs = getComputedStyle(row), tab = parseFloat(cs.getPropertyValue('--tab')) || 64, gap = parseFloat(cs.getPropertyValue('--gap')) || 10;
+    row.style.setProperty('--open-w', Math.max(240, row.clientWidth - (slices.length - 1) * (tab + gap)) + 'px');
+  }
+  sizeOpen(); window.addEventListener('resize', sizeOpen);
+  if (!document.documentElement.lang) document.documentElement.lang = 'fr';   /* lets the browser hyphenate French words */
+  /* hover intent: open a card only if the pointer rests on it briefly, so sweeping across the row does not flicker */
+  var hoverTimer = 0;
   slices.forEach(function(s){
-    s.addEventListener('mouseenter', function(){ if (wide.matches) openSlice(s); });
+    s.addEventListener('mouseenter', function(){ if (!wide.matches) return; clearTimeout(hoverTimer); hoverTimer = setTimeout(function(){ openSlice(s); }, 110); });
+    s.addEventListener('mouseleave', function(){ clearTimeout(hoverTimer); });
     s.addEventListener('focus', function(){ if (wide.matches) openSlice(s); });
     s.addEventListener('click', function(){ if (wide.matches) openSlice(s); });
     s.addEventListener('keydown', function(e){
@@ -1130,7 +1155,7 @@ p{margin:0}
     .from('#mgCore', { scale: .85, svgOrigin: '100 118', duration: .6 }, .24)
     .from('#mgLabels', { opacity: 0, duration: .16 }, .84);
 
-  gsap.from('.slice', { y: 60, opacity: 0, duration: 1.1, stagger: .05, ease: 'expo.out', scrollTrigger: { trigger: '.slices', start: 'top 85%' } });
+  gsap.from('.slice', { y: 60, opacity: 0, duration: 1.1, stagger: .05, ease: 'expo.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: '.slices', start: 'top 85%' } });   /* clearProps hands the cards back to the CSS hover effect */
   gsap.from('.div-list li', { y: 30, opacity: 0, duration: 1, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.div-list', start: 'top 85%' } });
 
   /* Agir */
