@@ -1108,8 +1108,8 @@ p{margin:0}
   var cards = gsap.utils.toArray('.stack-card');
   cards.forEach(function(card, i){
     if (i === cards.length - 1) return;
-    /* the covered card shrinks and dims a little but stays fully opaque, so its text never shows through */
-    gsap.to(card, { scale: .93, filter: 'brightness(.94)', ease: 'none', scrollTrigger: { trigger: cards[i+1], start: 'top bottom', end: 'top 30%', scrub: true } });
+    /* the covered card only shrinks a little; its opacity and colours never change */
+    gsap.to(card, { scale: .93, ease: 'none', scrollTrigger: { trigger: cards[i+1], start: 'top bottom', end: 'top 30%', scrub: true } });
   });
 
   gsap.from('#cmp .cmp-track i', { scaleX: 0, duration: 1.6, stagger: .25, ease: 'expo.out', scrollTrigger: { trigger: '#cmp', start: 'top 78%' } });
