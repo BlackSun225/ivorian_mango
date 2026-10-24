@@ -272,13 +272,13 @@ p{margin:0}
   /* the card widths change with a slow, symmetric ease-in-out, so the motion starts and ends gently */
   .slice{flex:0 0 var(--tab);transition:flex-grow 1.15s cubic-bezier(.65,0,.35,1),background-color .45s ease,box-shadow .6s ease,transform .5s cubic-bezier(.33,1,.68,1);cursor:pointer}
   .slice.is-open{flex:1 1 auto;cursor:default;box-shadow:0 22px 50px -34px rgba(59,42,30,.45)}
-  .slice:not(.is-open):hover{transform:translateY(-6px);box-shadow:0 16px 30px -22px rgba(59,42,30,.4)}
+  .slice.is-hot:not(.is-open){transform:translateY(-6px);box-shadow:0 16px 30px -22px rgba(59,42,30,.4)}
   .slice-tab{display:flex;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 0;transition:opacity .5s ease .25s}
   .slice.is-open .slice-tab{transition:opacity .25s ease}
   .slice-tab span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:-.01em;white-space:nowrap;transition:color .3s}
   .slice-tab i{width:12px;height:12px;border-radius:99px;background:var(--mango);transition:transform .35s cubic-bezier(.22,1,.36,1)}
-  .slice:not(.is-open):hover .slice-tab i{transform:scale(1.5)}
-  .slice:not(.is-open):hover .slice-tab span{color:var(--mango-ink)}
+  .slice.is-hot:not(.is-open) .slice-tab i{transform:scale(1.5)}
+  .slice.is-hot:not(.is-open) .slice-tab span{color:var(--mango-ink)}
   .slice.is-open .slice-tab{opacity:0;pointer-events:none}
   /* the open card's content is laid out at the card's final width, so it never reflows or overflows while the card grows */
   .slice-body{position:absolute;inset:0 auto 0 0;width:var(--open-w,100%);padding:30px;display:flex;flex-direction:column;gap:12px;pointer-events:none}
@@ -1017,11 +1017,35 @@ p{margin:0}
   }
   sizeOpen(); window.addEventListener('resize', sizeOpen);
   if (!document.documentElement.lang) document.documentElement.lang = 'fr';   /* lets the browser hyphenate French words */
-  /* hover intent: open a card only if the pointer rests on it briefly, so sweeping across the row does not flicker */
-  var hoverTimer = 0;
+  /* Hover without flicker: while cards resize they slide under a still cursor, so DOM hover
+     events would keep firing on whichever card passes by. Instead, the card under the pointer is
+     computed from the row's final layout (closed tabs + one open card), which does not move. */
+  var hoverTimer = 0, pending = -1, lastX = null;
+  function openIndex(){ for (var k = 0; k < slices.length; k++) if (slices[k].classList.contains('is-open')) return k; return 0; }
+  function indexAt(x){
+    var cs = getComputedStyle(row), tab = parseFloat(cs.getPropertyValue('--tab')) || 64, gap = parseFloat(cs.getPropertyValue('--gap')) || 10;
+    var openW = parseFloat(row.style.getPropertyValue('--open-w')) || (row.clientWidth - (slices.length - 1) * (tab + gap));
+    var o = openIndex(), left = 0;
+    for (var k = 0; k < slices.length; k++){
+      var w = k === o ? openW : tab;
+      if (x < left + w + gap / 2) return k;
+      left += w + gap;
+    }
+    return slices.length - 1;
+  }
+  function setHot(k){ slices.forEach(function(x, j){ x.classList.toggle('is-hot', j === k); }); }
+  row.addEventListener('pointermove', function(e){
+    if (!wide.matches || e.pointerType === 'touch') return;
+    lastX = e.clientX - row.getBoundingClientRect().left;
+    var k = indexAt(lastX);
+    setHot(k);
+    if (k === openIndex()) { clearTimeout(hoverTimer); pending = -1; return; }
+    if (k === pending) return;                       /* already waiting for this card */
+    pending = k; clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(function(){ openSlice(slices[pending]); pending = -1; }, 160);
+  });
+  row.addEventListener('pointerleave', function(){ clearTimeout(hoverTimer); pending = -1; setHot(-1); });
   slices.forEach(function(s){
-    s.addEventListener('mouseenter', function(){ if (!wide.matches) return; clearTimeout(hoverTimer); hoverTimer = setTimeout(function(){ openSlice(s); }, 140); });
-    s.addEventListener('mouseleave', function(){ clearTimeout(hoverTimer); });
     s.addEventListener('focus', function(){ if (wide.matches) openSlice(s); });
     s.addEventListener('click', function(){ if (wide.matches) openSlice(s); });
     s.addEventListener('keydown', function(e){
