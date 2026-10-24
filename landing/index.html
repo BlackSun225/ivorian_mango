@@ -317,7 +317,7 @@ p{margin:0}
 .act svg{width:40px;height:40px;color:var(--gold)}
 .act h3{font-size:clamp(1.4rem,1.2rem + .8vw,1.9rem);color:var(--cream)}
 .act p{color:rgba(251,246,236,.75)}
-.share-box{display:grid;gap:12px}
+.share-box{display:grid;gap:14px}
 .share-text{font-size:.92rem;background:rgba(0,0,0,.18);border-radius:16px;padding:14px 16px;color:rgba(251,246,236,.85);user-select:all}
 .share-status{font-family:var(--mono);font-size:.78rem;color:var(--gold);min-height:1.2em}
 .finale{margin-top:clamp(80px,12vw,160px);font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,1rem + 5vw,6rem);letter-spacing:-.035em;line-height:.98;max-width:18ch;text-wrap:balance}
@@ -378,6 +378,14 @@ p{margin:0}
 .chapter{padding-top:0!important;padding-bottom:var(--sec-gap)}
 #histoire{padding-top:var(--sec-gap)!important}
 .agir{margin-top:0;padding-top:var(--sec-gap)!important}
+
+/* Agir cards in the same row share their inner rows (icon, title, text, button), so their titles and texts line up */
+@supports (grid-template-rows:subgrid){
+  @media (min-width:760px){
+    .acts{row-gap:14px}
+    .act{grid-row:span 5;grid-template-rows:subgrid;row-gap:14px}
+  }
+}
 
 /* Compact call-to-action in the nav pill and the mobile menu */
 .nav-cta{padding:.55em 1em!important;font-size:.84rem!important;white-space:nowrap}
@@ -1186,7 +1194,18 @@ p{margin:0}
   gsap.from('.div-list li', { y: 30, opacity: 0, duration: 1, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.div-list', start: 'top 85%' } });
 
   /* Agir */
-  gsap.from('.act', { y: 70, opacity: 0, duration: 1.2, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.acts', start: 'top 82%' } });
+  /* Agir cards: the cards of one row rise together (rows follow each other), the CSS transform
+     transition is paused during the entrance so it cannot lag behind GSAP, and the inline styles
+     are cleared at the end so every card rests exactly on its grid line and the hover lift works */
+  (function(){
+    var acts = gsap.utils.toArray('.act'), rows = [];
+    acts.forEach(function(a){ var top = a.offsetTop, r = rows.filter(function(x){ return Math.abs(x.top - top) < 4; })[0];
+      if (r) r.items.push(a); else rows.push({ top: top, items: [a] }); });
+    gsap.set(acts, { transition: 'none' });
+    var tl = gsap.timeline({ scrollTrigger: { trigger: '.acts', start: 'top 82%' },
+      onComplete: function(){ gsap.set(acts, { clearProps: 'transform,opacity,transition' }); } });
+    rows.forEach(function(r, k){ tl.from(r.items, { y: 60, opacity: 0, duration: 1.1, ease: 'expo.out' }, k * .14); });
+  })();
   gsap.from('.finale', { y: 60, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.finale', start: 'top 85%' } });
 
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
