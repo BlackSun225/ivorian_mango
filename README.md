@@ -9,7 +9,10 @@ landing/index.html                             French scroll-driven landing page
 prompts/prompt-landing-mangue-ivoirienne.md    the prompt used to build the landing page
 research/eu-suspension-2026.md                 research notes: causes, data, impact, response, sources
 motion/                                        TikTok teaser video, cover and source (see motion/README.md)
+site-video/                                    TikTok video of the live site, with logo and original music (see site-video/README.md)
 ```
+
+The site is live at https://ivorianmango.maisondoudjo.com.
 
 ## Landing page
 
